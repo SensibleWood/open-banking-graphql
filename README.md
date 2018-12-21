@@ -1,20 +1,13 @@
 Overview
 ===
 
-This project will create a valid GraphQL schema that represents the Open Banking Limited Swagger specifications. Nominally it will:
+I'd had an idea that the UK Open Banking API specifications could be transposed to a GraphQL specification. 
 
-* Grab the Swagger
-* Grab the types
-* Lob them in a GraphQL schema
-
-We'll see where it goes from there...
-
-Sources
+Progress to date
 ===
 
-Current versions of the Payment Initiation and Account Information API specifications:
+I've only tackled Account Information so far - how Payment Initiation is dealt with needs more brain power. The source API specification defined using [Swagger](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md) can be found [here](https://github.com/OpenBankingUK/read-write-api-specs/blob/v3.1.0/dist/account-info-swagger.json).
 
-* [Account Info](https://openbanking.atlassian.net/wiki/download/attachments/127009221/account-info-swagger.json?api=v2)
-* [Payment Initiation]()
+The approach I've taken is fairly opinionated and I'm sure there are plenty of optimisations that could be achieved. In brief:
 
-
+* Primitives in Swagger (JSON Schema really) map pretty well to their GraphQL equivilents.

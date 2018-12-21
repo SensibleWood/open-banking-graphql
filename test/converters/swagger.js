@@ -1,11 +1,15 @@
 const { expect } = require('chai');
 const fs = require('fs');
+const graphql = require('graphql');
 
 const SwaggerToGraphQL = require('../../lib/converters/swagger');
 
 describe(__filename, () => {
-  const swagger = JSON.parse(fs.readFileSync(`${__dirname}/../data/account-info-swagger.json`, 'utf-8'));
-  const converter = SwaggerToGraphQL({ swagger });
+  const swagger = JSON.parse(fs.readFileSync(`${__dirname}/../data/specs/account-info-swagger.json`, 'utf-8'));
+  const template = fs.readFileSync(`${__dirname}/../data/templates/account-info.graphql`, 'utf-8');
+  const rootInterface = 'OBAccount3';
+
+  const converter = SwaggerToGraphQL({ swagger, template, rootInterface });
 
   describe('Type conversion cases', () => {
     it('string conversion returned as type String', () => {
@@ -38,17 +42,22 @@ describe(__filename, () => {
       expect(result.OBActiveOrHistoricCurrencyAndAmount.properties.Amount.type).to.equal('String');
       expect(result.OBActiveOrHistoricCurrencyAndAmount.properties.Amount.required).to.equal(true);
       expect(result.OBActiveOrHistoricCurrencyAndAmount.properties.Currency.type).to.equal('String');
-      expect(result.OBActiveOrHistoricCurrencyAndAmount.properties.Currency.required).to.equal(true);
+      expect(
+        result.OBActiveOrHistoricCurrencyAndAmount.properties.Currency.required,
+      ).to.equal(true);
     });
     it('enum string returned as enum', () => {
       const result = converter.convert('OBAddressTypeCode', swagger.definitions.OBAddressTypeCode);
       expect(result.OBAddressTypeCode.type).to.equal('enum');
-      expect(result.OBAddressTypeCode.values).to.deep.equal(swagger.definitions.OBAddressTypeCode.enum);
+      expect(
+        result.OBAddressTypeCode.values,
+      ).to.deep.equal(swagger.definitions.OBAddressTypeCode.enum);
     });
-    it('array with inline enum string returned as enum reference', () => {
+    it('array with inline enum string returned as enum reference and added to schema types', () => {
       const result = converter.convert('OBBCAData1', swagger.definitions.OBBCAData1);
 
-      // TODO: Add test here
+      expect(result.OBBCAData1.properties.OBBCAData1_ProductDetails.properties.Segment.type).to.equal('[OBBCAData1_ProductDetails_Segment_Segment]');
+      expect(converter.skeletonTypes.OBBCAData1_ProductDetails_Segment_Segment.type).to.equal('enum');
     });
   });
 
@@ -66,26 +75,19 @@ describe(__filename, () => {
   });
 
   describe('Rendering of types', () => {
-    it('Types without filter', () => {
-      const fullSchema = SwaggerToGraphQL({ swagger, template: fs.readFileSync(`${__dirname}/../../src/templates/account-info.graphql`) });
-      const schema = fullSchema.renderAll('^((?!(OBRead.*|Links|Meta|OBRisk2|OBError.*)))');
+    const regexCheck = (text, expression) => (new RegExp(expression)).test(text);
+    const fullSchema = SwaggerToGraphQL({ swagger, template, rootInterface });
+    const schema = fullSchema.renderAll('^((?!(OBRead.*|Links|Meta|OBRisk2|OBError.*)))');
 
+    // const schemaObj = graphql.buildSchema(schema);
+    // console.log(schemaObj);
 
-      fs.writeFileSync('build/account-info-types.json', JSON.stringify(converter.skeletonTypes, null, 2));
-      fs.writeFileSync('dist/account-info.graphql', schema);
+    // Some cursory tests - most of the work will be done by the linter
+    it('Check that the root interface has been defined', () => {
+      expect(regexCheck(schema, `interface ${rootInterface}`)).to.equal(true);
     });
-    it('Filtered types', () => {
-      // const schema = converter.render(
-      //   Object.keys(swagger.definitions)
-      //     .reduce((output, key) => {
-      //       if (!key.match(/^OBRead(Account|Balance|Beneficiary|Consent.*|DirectDebit|Offer|Party|Product|ScheduledPayment|StandingOrder|Statement|Transaction)[0-9]+$/)) {
-      //         output[key] = swagger.definitions[key]; // eslint-disable-line
-      //       }
-      //       return output;
-      //     }, {}),
-      // );
-
-      // console.log(schema);
+    it('Check that the Account type implements the root interface', () => {
+      expect(regexCheck(schema, `type Account implements ${rootInterface}`)).to.equal(true);
     });
   });
 });

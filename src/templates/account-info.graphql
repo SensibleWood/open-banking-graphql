@@ -2,9 +2,30 @@
 Account object wrapper that pulls together all the data available across REST endpoints
 Attributes of the account are embedded in their original type definition for consistency
 """
-type Account {
-  "Unambiguous identification of the account to which credit and debit entries are made."
-  Attributes: OBAccount3!
+type Account implements OBAccount3 {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  """
+  Identification of the currency in which the account is held. 
+  Usage: Currency should only be used in case one and the same account number covers several currencies
+  and the initiating party needs to identify which currency needs to be used for settlement on the account.
+  """
+  Currency: String!
+  "Specifies the type of account (personal or business)."
+  AccountType: OBExternalAccountType1Code!
+  "Specifies the sub type of account (product family group)."
+  AccountSubType: OBExternalAccountSubType1Code!
+  "Specifies the description of the account type."
+  Description: String
+  "The nickname of the account, assigned by the account owner in order to provide an additional means of identification of the account."
+  Nickname: String
+  "Provides the details to identify the beneficiary account."
+  Account: [OBCashAccount5]
+  """
+  Party that manages the account on behalf of the account owner, that is manages the registration and booking of entries on the account, calculates balances on the account and provides information about the account.
+  This is the servicer of the beneficiary account.
+  """
+  Servicer: OBBranchAndFinancialInstitutionIdentification5
   "Set of elements used to define the balance details."
   Balances: [OBCashBalance1]
   Beneficiary: [OBBeneficiary3]

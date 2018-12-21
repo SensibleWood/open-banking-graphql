@@ -1,0 +1,29 @@
+"""
+Account object wrapper that pulls together all the data available across REST endpoints
+Attributes of the account are embedded in their original type definition for consistency
+"""
+type Account implements OBAccount3 {
+  "Set of elements used to define the balance details."
+  Balances: [OBCashBalance1]
+  Beneficiary: [OBBeneficiary3]
+  "Account to or from which a cash entry is made."
+  DirectDebit: [OBDirectDebit1]
+  Offer: [OBOffer1]
+  Party: OBParty1
+  Product: [OBProduct2]
+  ScheduledPayment: [OBScheduledPayment2]
+  StandingOrder: [OBStandingOrder4]
+  "Provides further details on a statement resource."
+  Statement: [OBStatement1]
+  "Provides further details on an entry in the report."
+  Transaction: [OBTransaction4]
+}
+"""
+Root query that provides details of accounts available to the user
+"""
+type AccountsQuery {
+  """
+  Permitted accounts
+  """
+  Accounts: [Account]!
+}

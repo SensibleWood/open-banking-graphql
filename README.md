@@ -1,3 +1,8 @@
+TL;DR
+===
+
+Here's a GraphQL schema generated from the UK Open Banking Account Information API: https://raw.githubusercontent.com/SensibleWood/open-banking-graphql/master/dist/account-info.graphql
+
 Overview
 ===
 

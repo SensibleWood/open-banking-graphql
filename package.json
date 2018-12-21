@@ -14,12 +14,13 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
+    "graphql-schema-linter": "^0.1.6",
     "mocha": "^5.2.0"
   },
   "scripts": {
     "test": "mocha --recursive",
     "coverage": "nyc --reporter=html --reporter=text ./node_modules/.bin/_mocha --recursive ; open ./coverage/index.html",
-    "lint": "graphql-schema-linter -c .",
+    "lint": "node_modules/.bin/graphql-schema-linter -c .",
     "lint:account-info": "API_NAME=account-info && npm run lint -- dist/${API_NAME}.graphql",
     "generate": "node scripts/generate.js",
     "generate:account-info": "API_NAME=account-info && npm run generate -- --input src/specs/${API_NAME}-swagger.json --template src/templates/${API_NAME}.graphql --rootInterface OBAccount3 --filter '^((?!(OBRead.*|Links|Meta|OBRisk2|OBError.*|OB.*Basic$|OB.*Detail$|OBCreditDebitCode|OBExternalPermissions1Code|OBExternalRequestStatus1Code)))' --output dist/${API_NAME}.graphql",

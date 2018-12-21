@@ -1,0 +1,32 @@
+{
+  "name": "obuk-graphql-schema",
+  "version": "1.0.0",
+  "description": "Overview ===",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^4.2.0",
+    "jsonpath": "^1.0.0",
+    "yargs": "^12.0.5"
+  },
+  "devDependencies": {
+    "mocha": "^5.2.0"
+  },
+  "scripts": {
+    "test": "mocha --recursive",
+    "coverage": "nyc --reporter=html --reporter=text ./node_modules/.bin/_mocha --recursive ; open ./coverage/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SensibleWood/ob-graphql-slurper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SensibleWood/ob-graphql-slurper/issues"
+  },
+  "homepage": "https://github.com/SensibleWood/ob-graphql-slurper#readme"
+}

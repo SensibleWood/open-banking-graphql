@@ -1,0 +1,3978 @@
+"""
+Unambiguous identification of the account to which credit and debit entries are made.
+"""
+type OBAccount3 {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  """
+  Identification of the currency in which the account is held. 
+  Usage: Currency should only be used in case one and the same account number covers several currencies
+  and the initiating party needs to identify which currency needs to be used for settlement on the account.
+  """
+  Currency: String!
+  "Specifies the type of account (personal or business)."
+  AccountType: OBExternalAccountType1Code!
+  "Specifies the sub type of account (product family group)."
+  AccountSubType: OBExternalAccountSubType1Code!
+  "Specifies the description of the account type."
+  Description: String
+  "The nickname of the account, assigned by the account owner in order to provide an additional means of identification of the account."
+  Nickname: String
+  "Provides the details to identify the beneficiary account."
+  Account: [OBCashAccount5]
+  """
+  Party that manages the account on behalf of the account owner, that is manages the registration and booking of entries on the account, calculates balances on the account and provides information about the account.
+  This is the servicer of the beneficiary account.
+  """
+  Servicer: OBBranchAndFinancialInstitutionIdentification5
+}
+"""
+Unambiguous identification of the account to which credit and debit entries are made.
+"""
+type OBAccount3Basic {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  """
+  Identification of the currency in which the account is held. 
+  Usage: Currency should only be used in case one and the same account number covers several currencies
+  and the initiating party needs to identify which currency needs to be used for settlement on the account.
+  """
+  Currency: String!
+  "Specifies the type of account (personal or business)."
+  AccountType: OBExternalAccountType1Code!
+  "Specifies the sub type of account (product family group)."
+  AccountSubType: OBExternalAccountSubType1Code!
+  "Specifies the description of the account type."
+  Description: String
+  "The nickname of the account, assigned by the account owner in order to provide an additional means of identification of the account."
+  Nickname: String
+}
+"""
+Unambiguous identification of the account to which credit and debit entries are made.
+"""
+type OBAccount3Detail {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  """
+  Identification of the currency in which the account is held. 
+  Usage: Currency should only be used in case one and the same account number covers several currencies
+  and the initiating party needs to identify which currency needs to be used for settlement on the account.
+  """
+  Currency: String!
+  "Specifies the type of account (personal or business)."
+  AccountType: OBExternalAccountType1Code!
+  "Specifies the sub type of account (product family group)."
+  AccountSubType: OBExternalAccountSubType1Code!
+  "Specifies the description of the account type."
+  Description: String
+  "The nickname of the account, assigned by the account owner in order to provide an additional means of identification of the account."
+  Nickname: String
+  "Provides the details to identify the beneficiary account."
+  Account: [OBCashAccount5]!
+  """
+  Party that manages the account on behalf of the account owner, that is manages the registration and booking of entries on the account, calculates balances on the account and provides information about the account.
+  This is the servicer of the beneficiary account.
+  """
+  Servicer: OBBranchAndFinancialInstitutionIdentification5
+}
+"""
+Amount of money of the cash balance after a transaction entry is applied to the account..
+"""
+type OBActiveOrHistoricCurrencyAndAmount {
+  "A number of monetary units specified in an active currency where the unit of currency is explicit and compliant with ISO 4217."
+  Amount: String!
+  "A code allocated to a currency by a Maintenance Agency under an international identification scheme, as described in the latest edition of the international standard ISO 4217 Codes for the representation of currencies and funds."
+  Currency: String!
+}
+"""
+Identifies the nature of the postal address.
+"""
+enum OBAddressTypeCode {
+  Business
+  Correspondence
+  DeliveryTo
+  MailTo
+  POBox
+  Postal
+  Residential
+  Statement
+}
+"""
+Market segmentation is a marketing term referring to the aggregating of prospective buyers into groups, or segments, that have common needs and respond similarly to a marketing action. Market segmentation enables companies to target different categories of consumers who perceive the full value of certain products and services differently from one another.
+
+Read more: Market Segmentation http://www.investopedia.com/terms/m/marketsegmentation.asp#ixzz4gfEEalTd 
+With respect to BCA products, they are segmented in relation to different markets that they wish to focus on. 
+"""
+enum OBBCAData1_ProductDetails_Segment_Segment {
+  ClientAccount
+  Standard
+  NonCommercialChaitiesClbSoc
+  NonCommercialPublicAuthGovt
+  Religious
+  SectorSpecific
+  Startup
+  Switcher
+}
+"""
+The unit of period (days, weeks, months etc.) of the promotional length
+"""
+enum OBBCAData1_ProductDetails_FeeFreeLengthPeriod {
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+type OBBCAData1_ProductDetails {
+  """
+  Market segmentation is a marketing term referring to the aggregating of prospective buyers into groups, or segments, that have common needs and respond similarly to a marketing action. Market segmentation enables companies to target different categories of consumers who perceive the full value of certain products and services differently from one another.
+  
+  Read more: Market Segmentation http://www.investopedia.com/terms/m/marketsegmentation.asp#ixzz4gfEEalTd 
+  With respect to BCA products, they are segmented in relation to different markets that they wish to focus on. 
+  """
+  Segment: [OBBCAData1_ProductDetails_Segment_Segment]
+  "The length/duration of the fee free period"
+  FeeFreeLength: Float
+  "The unit of period (days, weeks, months etc.) of the promotional length"
+  FeeFreeLengthPeriod: OBBCAData1_ProductDetails_FeeFreeLengthPeriod
+  "Optional additional notes to supplement the Core product details"
+  Notes: [String]
+}
+"""
+The methodology of how credit interest is paid/applied. It can be:-
+
+1. Banded
+Interest rates are banded. i.e. Increasing rate on whole balance as balance increases.
+
+2. Tiered
+Interest rates are tiered. i.e. increasing rate for each tier as balance increases, but interest paid on tier fixed for that tier and not on whole balance.
+
+3. Whole
+The same interest rate is applied irrespective of the BCA balance
+"""
+enum OBBCAData1_CreditInterest_TierBandSet_TierBandMethod {
+  Banded
+  Tiered
+  Whole
+}
+"""
+Methods of calculating interest
+"""
+enum OBBCAData1_CreditInterest_TierBandSet_CalculationMethod {
+  Compound
+  SimpleInterest
+}
+"""
+Describes whether accrued interest is payable only to the BCA or to another bank account
+"""
+enum OBBCAData1_CreditInterest_TierBandSet_Destination {
+  PayAway
+  SelfCredit
+}
+"""
+How often is credit interest calculated for the account.
+"""
+enum OBBCAData1_CreditInterest_TierBandSet_TierBand_CalculationFrequency {
+  Daily
+  HalfYearly
+  Monthly
+  Other
+  Quarterly
+  PerStatementDate
+  Weekly
+  Yearly
+}
+"""
+How often is interest applied to the BCA for this tier/band i.e. how often the financial institution pays accumulated interest to the customer's BCA.
+"""
+enum OBBCAData1_CreditInterest_TierBandSet_TierBand_ApplicationFrequency {
+  Daily
+  HalfYearly
+  Monthly
+  Other
+  Quarterly
+  PerStatementDate
+  Weekly
+  Yearly
+}
+"""
+Amount on which Interest applied.
+"""
+enum OBBCAData1_CreditInterest_TierBandSet_TierBand_DepositInterestAppliedCoverage {
+  Banded
+  Tiered
+  Whole
+}
+"""
+Type of interest rate, Fixed or Variable
+"""
+enum OBBCAData1_CreditInterest_TierBandSet_TierBand_FixedVariableInterestRateType {
+  Fixed
+  Variable
+}
+"""
+Interest rate types, other than AER, which financial institutions may use to describe the annual interest rate payable to the BCA.
+"""
+enum OBBCAData1_CreditInterest_TierBandSet_TierBand_BankInterestRateType {
+  Gross
+  Other
+}
+"""
+Other interest rate types which are not available in the standard code list
+"""
+type OBBCAData1_CreditInterest_TierBandSet_TierBand_OtherBankInterestType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other application frequencies that are not available in the standard code list
+"""
+type OBBCAData1_CreditInterest_TierBandSet_TierBand_OtherApplicationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other calculation frequency which is not available in the standard code set.
+"""
+type OBBCAData1_CreditInterest_TierBandSet_TierBand_OtherCalculationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Tier Band Details
+"""
+type OBBCAData1_CreditInterest_TierBandSet_TierBand {
+  "Unique and unambiguous identification of a  Tier Band for a BCA."
+  Identification: String
+  "Minimum deposit value for which the credit interest tier applies."
+  TierValueMinimum: String!
+  "Maximum deposit value for which the credit interest tier applies."
+  TierValueMaximum: String
+  "How often is credit interest calculated for the account."
+  CalculationFrequency: OBBCAData1_CreditInterest_TierBandSet_TierBand_CalculationFrequency
+  "How often is interest applied to the BCA for this tier/band i.e. how often the financial institution pays accumulated interest to the customer's BCA."
+  ApplicationFrequency: OBBCAData1_CreditInterest_TierBandSet_TierBand_ApplicationFrequency!
+  "Amount on which Interest applied."
+  DepositInterestAppliedCoverage: OBBCAData1_CreditInterest_TierBandSet_TierBand_DepositInterestAppliedCoverage
+  "Type of interest rate, Fixed or Variable"
+  FixedVariableInterestRateType: OBBCAData1_CreditInterest_TierBandSet_TierBand_FixedVariableInterestRateType!
+  """
+  The annual equivalent rate (AER) is interest that is calculated under the assumption that any interest paid is combined with the original balance and the next interest payment will be based on the slightly higher account balance. Overall, this means that interest can be compounded several times in a year depending on the number of times that interest payments are made. 
+  
+  Read more: Annual Equivalent Rate (AER) http://www.investopedia.com/terms/a/aer.asp#ixzz4gfR7IO1A
+  """
+  AER: String!
+  "Interest rate types, other than AER, which financial institutions may use to describe the annual interest rate payable to the BCA."
+  BankInterestRateType: OBBCAData1_CreditInterest_TierBandSet_TierBand_BankInterestRateType
+  "Bank Interest for the BCA product"
+  BankInterestRate: String
+  "Optional additional notes to supplement the Tier Band details"
+  Notes: [String]
+  "Other interest rate types which are not available in the standard code list"
+  OtherBankInterestType: OBBCAData1_CreditInterest_TierBandSet_TierBand_OtherBankInterestType
+  "Other application frequencies that are not available in the standard code list"
+  OtherApplicationFrequency: OBBCAData1_CreditInterest_TierBandSet_TierBand_OtherApplicationFrequency
+  "Other calculation frequency which is not available in the standard code set."
+  OtherCalculationFrequency: OBBCAData1_CreditInterest_TierBandSet_TierBand_OtherCalculationFrequency
+}
+"""
+The group of tiers or bands for which credit interest can be applied.
+"""
+type OBBCAData1_CreditInterest_TierBandSet {
+  """
+  The methodology of how credit interest is paid/applied. It can be:-
+  
+  1. Banded
+  Interest rates are banded. i.e. Increasing rate on whole balance as balance increases.
+  
+  2. Tiered
+  Interest rates are tiered. i.e. increasing rate for each tier as balance increases, but interest paid on tier fixed for that tier and not on whole balance.
+  
+  3. Whole
+  The same interest rate is applied irrespective of the BCA balance
+  """
+  TierBandMethod: OBBCAData1_CreditInterest_TierBandSet_TierBandMethod!
+  "Methods of calculating interest"
+  CalculationMethod: OBBCAData1_CreditInterest_TierBandSet_CalculationMethod
+  "Describes whether accrued interest is payable only to the BCA or to another bank account"
+  Destination: OBBCAData1_CreditInterest_TierBandSet_Destination!
+  "Optional additional notes to supplement the Tier Band Set details"
+  Notes: [String]
+  "Tier Band Details"
+  TierBand: OBBCAData1_CreditInterest_TierBandSet_TierBand!
+}
+"""
+Details about the interest that may be payable to the BCA account holders
+"""
+type OBBCAData1_CreditInterest {
+  "The group of tiers or bands for which credit interest can be applied."
+  TierBandSet: OBBCAData1_CreditInterest_TierBandSet!
+}
+"""
+The methodology of how overdraft is charged. It can be:
+'Whole'  Where the same charge/rate is applied to the entirety of the overdraft balance (where charges are applicable). 
+'Tiered' Where different charges/rates are applied dependent on overdraft maximum and minimum balance amount tiers defined by the lending financial organisation
+'Banded' Where different charges/rates are applied dependent on overdraft maximum and minimum balance amount bands defined by a government organisation.
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_TierBandMethod {
+  Banded
+  Tiered
+  Whole
+}
+"""
+An overdraft can either be 'committed' which means that the facility cannot be withdrawn without reasonable notification before it's agreed end date, or 'on demand' which means that the financial institution can demand repayment at any point in time.
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftType {
+  Committed
+  OnDemand
+}
+"""
+Specifies the period of a fixed length overdraft agreement
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_AgreementPeriod {
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+"""
+Refers to which interest rate is applied when interests are tiered. For example, if an overdraft balance is £2k and the interest tiers are:- 0-£500 0.1%, 500-1000 0.2%, 1000-10000 0.5%, then the applicable interest rate could either be 0.5% of the entire balance (since the account balance sits in the top interest tier) or (0.1%*500)+(0.2%*500)+(0.5%*1000). In the 1st situation, we say the interest is applied to the ‘Whole’ of the account balance,  and in the 2nd that it is ‘Tiered’.
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftInterestChargingCoverage {
+  Banded
+  Tiered
+  Whole
+}
+"""
+Overdraft fee type
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_FeeType_FeeType {
+  ArrangedOverdraft
+  AnnualReview
+  EmergencyBorrowing
+  BorrowingItem
+  OverdraftRenewal
+  OverdraftSetup
+  Surcharge
+  TempOverdraft
+  UnauthorisedBorrowing
+  UnauthorisedPaidTrans
+  Other
+  UnauthorisedUnpaidTrans
+}
+"""
+Min Max type
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_MinMaxType {
+  Minimum
+  Maximum
+}
+"""
+Period e.g. day, week, month etc. for which the fee/charge is capped
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_CappingPeriod {
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+"""
+Other fee type code which is not available in the standard code set
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about any caps (maximum charges) that apply to a particular fee/charge. Capping can either be based on an amount (in gbp), an amount (in items) or a rate.
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap {
+  "Fee/charge type which is being capped"
+  FeeType: [OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_FeeType_FeeType]
+  "Min Max type"
+  MinMaxType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_MinMaxType!
+  "Indicates whether the advertised overdraft rate is guaranteed to be offered to a borrower by the bank e.g. if it’s part of a government scheme, or whether the rate may vary dependent on the applicant’s circumstances."
+  FeeCapOccurrence: Float
+  "Cap amount charged for a fee/charge"
+  FeeCapAmount: String
+  "Period e.g. day, week, month etc. for which the fee/charge is capped"
+  CappingPeriod: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_CappingPeriod
+  "Notes related to Overdraft fee charge cap"
+  Notes: [String]
+  "Other fee type code which is not available in the standard code set"
+  OtherFeeType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_OtherFeeType
+}
+"""
+Overdraft fee type
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeType {
+  ArrangedOverdraft
+  AnnualReview
+  EmergencyBorrowing
+  BorrowingItem
+  OverdraftRenewal
+  OverdraftSetup
+  Surcharge
+  TempOverdraft
+  UnauthorisedBorrowing
+  UnauthorisedPaidTrans
+  Other
+  UnauthorisedUnpaidTrans
+}
+"""
+Rate type for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeRateType {
+  Gross
+  Other
+}
+"""
+Frequency at which the overdraft charge is applied to the account
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_ApplicationFrequency {
+  OnClosing
+  OnOpening
+  ChargingPeriod
+  Daily
+  PerItem
+  Monthly
+  OnAnniversary
+  Other
+  PerHundredPounds
+  PerHour
+  PerOccurrence
+  PerSheet
+  PerTransaction
+  PerTransactionAmount
+  PerTransactionPercentage
+  Quarterly
+  SixMonthly
+  StatementMonthly
+  Weekly
+  Yearly
+}
+"""
+How often is the overdraft fee/charge calculated for the account.
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_CalculationFrequency {
+  OnClosing
+  OnOpening
+  ChargingPeriod
+  Daily
+  PerItem
+  Monthly
+  OnAnniversary
+  Other
+  PerHundredPounds
+  PerHour
+  PerOccurrence
+  PerSheet
+  PerTransaction
+  PerTransactionAmount
+  PerTransactionPercentage
+  Quarterly
+  SixMonthly
+  StatementMonthly
+  Weekly
+  Yearly
+}
+"""
+Overdraft fee type
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_FeeType_FeeType {
+  ArrangedOverdraft
+  AnnualReview
+  EmergencyBorrowing
+  BorrowingItem
+  OverdraftRenewal
+  OverdraftSetup
+  Surcharge
+  TempOverdraft
+  UnauthorisedBorrowing
+  UnauthorisedPaidTrans
+  Other
+  UnauthorisedUnpaidTrans
+}
+"""
+Min Max type
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_MinMaxType {
+  Minimum
+  Maximum
+}
+"""
+Period e.g. day, week, month etc. for which the fee/charge is capped
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_CappingPeriod {
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+"""
+Other fee type code which is not available in the standard code set
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about any caps (maximum charges) that apply to a particular fee/charge. Capping can either be based on an amount (in gbp), an amount (in items) or a rate.
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap {
+  "Fee/charge type which is being capped"
+  FeeType: [OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_FeeType_FeeType]
+  "Min Max type"
+  MinMaxType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_MinMaxType!
+  "Indicates whether the advertised overdraft rate is guaranteed to be offered to a borrower by the bank e.g. if it’s part of a government scheme, or whether the rate may vary dependent on the applicant’s circumstances."
+  FeeCapOccurrence: Float
+  "Cap amount charged for a fee/charge"
+  FeeCapAmount: String
+  "Period e.g. day, week, month etc. for which the fee/charge is capped"
+  CappingPeriod: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_CappingPeriod
+  "Notes related to Overdraft fee charge cap"
+  Notes: [String]
+  "Other fee type code which is not available in the standard code set"
+  OtherFeeType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_OtherFeeType
+}
+"""
+Other Fee type which is not available in the standard code set
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other fee rate type code which is not available in the standard code set
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeRateType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other application frequencies that are not available in the standard code list
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherApplicationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other calculation frequency which is not available in the standard code set.
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherCalculationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about the fees/charges
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail {
+  "Overdraft fee type"
+  FeeType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeType!
+  "Indicates whether fee and charges are negotiable"
+  NegotiableIndicator: Boolean
+  "Indicates if the fee/charge is already covered by an 'Overdraft Control' fee or not."
+  OverdraftControlIndicator: Boolean
+  "Every additional tranche of an overdraft balance to which an overdraft fee is applied"
+  IncrementalBorrowingAmount: String
+  "Amount charged for an overdraft fee/charge (where it is charged in terms of an amount rather than a rate)"
+  FeeAmount: String
+  "Rate charged for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)"
+  FeeRate: String
+  "Rate type for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)"
+  FeeRateType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeRateType
+  "Frequency at which the overdraft charge is applied to the account"
+  ApplicationFrequency: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_ApplicationFrequency!
+  "How often is the overdraft fee/charge calculated for the account."
+  CalculationFrequency: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_CalculationFrequency
+  "Free text for capturing any other info related to Overdraft Fees Charge Details"
+  Notes: [String]
+  "Details about any caps (maximum charges) that apply to a particular fee/charge. Capping can either be based on an amount (in gbp), an amount (in items) or a rate."
+  OverdraftFeeChargeCap: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap
+  "Other Fee type which is not available in the standard code set"
+  OtherFeeType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeType
+  "Other fee rate type code which is not available in the standard code set"
+  OtherFeeRateType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeRateType
+  "Other application frequencies that are not available in the standard code list"
+  OtherApplicationFrequency: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherApplicationFrequency
+  "Other calculation frequency which is not available in the standard code set."
+  OtherCalculationFrequency: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherCalculationFrequency
+}
+"""
+Overdraft fees and charges
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges {
+  "Details about any caps (maximum charges) that apply to a particular fee/charge. Capping can either be based on an amount (in gbp), an amount (in items) or a rate."
+  OverdraftFeeChargeCap: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap
+  "Details about the fees/charges"
+  OverdraftFeeChargeDetail: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail!
+}
+"""
+Provides overdraft details for a specific tier or band
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand {
+  "Unique and unambiguous identification of a  Tier Band for a overdraft."
+  Identification: String
+  "Minimum value of Overdraft Tier/Band"
+  TierValueMin: String!
+  "Maximum value of Overdraft Tier/Band"
+  TierValueMax: String
+  """
+  EAR means Effective Annual Rate and/or Equivalent Annual Rate (frequently
+  used interchangeably), being the actual annual interest rate of an Overdraft.
+  """
+  EAR: String
+  "Specifies the minimum length of a band for a fixed overdraft agreement"
+  AgreementLengthMin: Float
+  "Specifies the maximum length of a band for a fixed overdraft agreement"
+  AgreementLengthMax: Float
+  "Specifies the period of a fixed length overdraft agreement"
+  AgreementPeriod: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_AgreementPeriod
+  "Refers to which interest rate is applied when interests are tiered. For example, if an overdraft balance is £2k and the interest tiers are:- 0-£500 0.1%, 500-1000 0.2%, 1000-10000 0.5%, then the applicable interest rate could either be 0.5% of the entire balance (since the account balance sits in the top interest tier) or (0.1%*500)+(0.2%*500)+(0.5%*1000). In the 1st situation, we say the interest is applied to the ‘Whole’ of the account balance,  and in the 2nd that it is ‘Tiered’."
+  OverdraftInterestChargingCoverage: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftInterestChargingCoverage
+  "Indicates whether the advertised overdraft rate is guaranteed to be offered to a borrower by the bank e.g. if it’s part of a government scheme, or whether the rate may vary dependent on the applicant’s circumstances."
+  BankGuaranteedIndicator: Boolean
+  "Optional additional notes to supplement the Tier/band details"
+  Notes: [String]
+  "Overdraft fees and charges"
+  OverdraftFeesCharges: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges
+}
+"""
+Overdraft fee type
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_FeeType_FeeType {
+  ArrangedOverdraft
+  AnnualReview
+  EmergencyBorrowing
+  BorrowingItem
+  OverdraftRenewal
+  OverdraftSetup
+  Surcharge
+  TempOverdraft
+  UnauthorisedBorrowing
+  UnauthorisedPaidTrans
+  Other
+  UnauthorisedUnpaidTrans
+}
+"""
+Min Max type
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_MinMaxType {
+  Minimum
+  Maximum
+}
+"""
+Period e.g. day, week, month etc. for which the fee/charge is capped
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_CappingPeriod {
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+"""
+Other fee type code which is not available in the standard code set
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about any caps (maximum charges) that apply to a particular fee/charge. Capping can either be based on an amount (in gbp), an amount (in items) or a rate.
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap {
+  "Fee/charge type which is being capped"
+  FeeType: [OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_FeeType_FeeType]
+  "Min Max type"
+  MinMaxType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_MinMaxType!
+  "Indicates whether the advertised overdraft rate is guaranteed to be offered to a borrower by the bank e.g. if it’s part of a government scheme, or whether the rate may vary dependent on the applicant’s circumstances."
+  FeeCapOccurrence: Float
+  "Cap amount charged for a fee/charge"
+  FeeCapAmount: String
+  "Period e.g. day, week, month etc. for which the fee/charge is capped"
+  CappingPeriod: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_CappingPeriod
+  "Notes related to Overdraft fee charge cap"
+  Notes: [String]
+  "Other fee type code which is not available in the standard code set"
+  OtherFeeType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_OtherFeeType
+}
+"""
+Overdraft fee type
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeType {
+  ArrangedOverdraft
+  AnnualReview
+  EmergencyBorrowing
+  BorrowingItem
+  OverdraftRenewal
+  OverdraftSetup
+  Surcharge
+  TempOverdraft
+  UnauthorisedBorrowing
+  UnauthorisedPaidTrans
+  Other
+  UnauthorisedUnpaidTrans
+}
+"""
+Rate type for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeRateType {
+  Gross
+  Other
+}
+"""
+Frequency at which the overdraft charge is applied to the account
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_ApplicationFrequency {
+  OnClosing
+  OnOpening
+  ChargingPeriod
+  Daily
+  PerItem
+  Monthly
+  OnAnniversary
+  Other
+  PerHundredPounds
+  PerHour
+  PerOccurrence
+  PerSheet
+  PerTransaction
+  PerTransactionAmount
+  PerTransactionPercentage
+  Quarterly
+  SixMonthly
+  StatementMonthly
+  Weekly
+  Yearly
+}
+"""
+How often is the overdraft fee/charge calculated for the account.
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_CalculationFrequency {
+  OnClosing
+  OnOpening
+  ChargingPeriod
+  Daily
+  PerItem
+  Monthly
+  OnAnniversary
+  Other
+  PerHundredPounds
+  PerHour
+  PerOccurrence
+  PerSheet
+  PerTransaction
+  PerTransactionAmount
+  PerTransactionPercentage
+  Quarterly
+  SixMonthly
+  StatementMonthly
+  Weekly
+  Yearly
+}
+"""
+Overdraft fee type
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_FeeType_FeeType {
+  ArrangedOverdraft
+  AnnualReview
+  EmergencyBorrowing
+  BorrowingItem
+  OverdraftRenewal
+  OverdraftSetup
+  Surcharge
+  TempOverdraft
+  UnauthorisedBorrowing
+  UnauthorisedPaidTrans
+  Other
+  UnauthorisedUnpaidTrans
+}
+"""
+Min Max type
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_MinMaxType {
+  Minimum
+  Maximum
+}
+"""
+Period e.g. day, week, month etc. for which the fee/charge is capped
+"""
+enum OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_CappingPeriod {
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+"""
+Other fee type code which is not available in the standard code set
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about any caps (maximum charges) that apply to a particular fee/charge. Capping can either be based on an amount (in gbp), an amount (in items) or a rate.
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap {
+  "Fee/charge type which is being capped"
+  FeeType: [OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_FeeType_FeeType]
+  "Min Max type"
+  MinMaxType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_MinMaxType!
+  "Indicates whether the advertised overdraft rate is guaranteed to be offered to a borrower by the bank e.g. if it’s part of a government scheme, or whether the rate may vary dependent on the applicant’s circumstances."
+  FeeCapOccurrence: Float
+  "Cap amount charged for a fee/charge"
+  FeeCapAmount: String
+  "Period e.g. day, week, month etc. for which the fee/charge is capped"
+  CappingPeriod: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_CappingPeriod
+  "Notes related to Overdraft fee charge cap"
+  Notes: [String]
+  "Other fee type code which is not available in the standard code set"
+  OtherFeeType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_OtherFeeType
+}
+"""
+Other Fee type which is not available in the standard code set
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other fee rate type code which is not available in the standard code set
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeRateType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other application frequencies that are not available in the standard code list
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherApplicationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other calculation frequency which is not available in the standard code set.
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherCalculationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about the fees/charges
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail {
+  "Overdraft fee type"
+  FeeType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeType!
+  "Indicates whether fee and charges are negotiable"
+  NegotiableIndicator: Boolean
+  "Indicates if the fee/charge is already covered by an 'Overdraft Control' fee or not."
+  OverdraftControlIndicator: Boolean
+  "Every additional tranche of an overdraft balance to which an overdraft fee is applied"
+  IncrementalBorrowingAmount: String
+  "Amount charged for an overdraft fee/charge (where it is charged in terms of an amount rather than a rate)"
+  FeeAmount: String
+  "Rate charged for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)"
+  FeeRate: String
+  "Rate type for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)"
+  FeeRateType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeRateType
+  "Frequency at which the overdraft charge is applied to the account"
+  ApplicationFrequency: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_ApplicationFrequency!
+  "How often is the overdraft fee/charge calculated for the account."
+  CalculationFrequency: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_CalculationFrequency
+  "Free text for capturing any other info related to Overdraft Fees Charge Details"
+  Notes: [String]
+  "Details about any caps (maximum charges) that apply to a particular fee/charge. Capping can either be based on an amount (in gbp), an amount (in items) or a rate."
+  OverdraftFeeChargeCap: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap
+  "Other Fee type which is not available in the standard code set"
+  OtherFeeType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeType
+  "Other fee rate type code which is not available in the standard code set"
+  OtherFeeRateType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeRateType
+  "Other application frequencies that are not available in the standard code list"
+  OtherApplicationFrequency: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherApplicationFrequency
+  "Other calculation frequency which is not available in the standard code set."
+  OtherCalculationFrequency: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherCalculationFrequency
+}
+"""
+Overdraft fees and charges details
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges {
+  "Details about any caps (maximum charges) that apply to a particular fee/charge. Capping can either be based on an amount (in gbp), an amount (in items) or a rate."
+  OverdraftFeeChargeCap: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap
+  "Details about the fees/charges"
+  OverdraftFeeChargeDetail: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail!
+}
+"""
+Tier band set details
+"""
+type OBBCAData1_Overdraft_OverdraftTierBandSet {
+  """
+  The methodology of how overdraft is charged. It can be:
+  'Whole'  Where the same charge/rate is applied to the entirety of the overdraft balance (where charges are applicable). 
+  'Tiered' Where different charges/rates are applied dependent on overdraft maximum and minimum balance amount tiers defined by the lending financial organisation
+  'Banded' Where different charges/rates are applied dependent on overdraft maximum and minimum balance amount bands defined by a government organisation.
+  """
+  TierBandMethod: OBBCAData1_Overdraft_OverdraftTierBandSet_TierBandMethod!
+  "An overdraft can either be 'committed' which means that the facility cannot be withdrawn without reasonable notification before it's agreed end date, or 'on demand' which means that the financial institution can demand repayment at any point in time."
+  OverdraftType: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftType
+  "Unique and unambiguous identification of a  Tier Band for a overdraft product."
+  Identification: String
+  "Indicates if the Overdraft is authorised (Y) or unauthorised (N)"
+  AuthorisedIndicator: Boolean
+  "When a customer exceeds their credit limit, a financial institution will not charge the customer unauthorised overdraft charges if they do not exceed by more than the buffer amount. Note: Authorised overdraft charges may still apply."
+  BufferAmount: String
+  "Optional additional notes to supplement the overdraft Tier Band Set details"
+  Notes: [String]
+  "Provides overdraft details for a specific tier or band"
+  OverdraftTierBand: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand!
+  "Overdraft fees and charges details"
+  OverdraftFeesCharges: OBBCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges
+}
+"""
+Borrowing details
+"""
+type OBBCAData1_Overdraft {
+  "Associated Notes about the overdraft rates"
+  Notes: [String]
+  "Tier band set details"
+  OverdraftTierBandSet: OBBCAData1_Overdraft_OverdraftTierBandSet!
+}
+"""
+TariffType which defines the fee and charges.
+"""
+enum OBBCAData1_OtherFeesCharges_TariffType {
+  Electronic
+  Mixed
+  Other
+}
+"""
+Other tariff type which is not in the standard list.
+"""
+type OBBCAData1_OtherFeesCharges_OtherTariffType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Categorisation of fees and charges into standard categories.
+"""
+enum OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeCategory {
+  Other
+  Servicing
+}
+"""
+Fee/Charge Type
+"""
+enum OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeType {
+  Other
+  ServiceCAccountFee
+  ServiceCAccountFeeMonthly
+  ServiceCAccountFeeQuarterly
+  ServiceCFixedTariff
+  ServiceCBusiDepAccBreakage
+  ServiceCMinimumMonthlyFee
+  ServiceCOther
+}
+"""
+Rate type for Fee/Charge (where it is charged in terms of a rate rather than an amount)
+"""
+enum OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeRateType {
+  Gross
+  Other
+}
+"""
+How frequently the fee/charge is applied to the account
+"""
+enum OBBCAData1_OtherFeesCharges_FeeChargeDetail_ApplicationFrequency {
+  OnClosing
+  OnOpening
+  ChargingPeriod
+  Daily
+  PerItem
+  Monthly
+  OnAnniversary
+  Other
+  PerHundredPounds
+  PerHour
+  PerOccurrence
+  PerSheet
+  PerTransaction
+  PerTransactionAmount
+  PerTransactionPercentage
+  Quarterly
+  SixMonthly
+  StatementMonthly
+  Weekly
+  Yearly
+}
+"""
+How frequently the fee/charge is calculated
+"""
+enum OBBCAData1_OtherFeesCharges_FeeChargeDetail_CalculationFrequency {
+  OnClosing
+  OnOpening
+  ChargingPeriod
+  Daily
+  PerItem
+  Monthly
+  OnAnniversary
+  Other
+  PerHundredPounds
+  PerHour
+  PerOccurrence
+  PerSheet
+  PerTransaction
+  PerTransactionAmount
+  PerTransactionPercentage
+  Quarterly
+  SixMonthly
+  StatementMonthly
+  Weekly
+  Yearly
+}
+"""
+Fee/charge type which is being capped
+"""
+enum OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_FeeType_FeeType {
+  Other
+  ServiceCAccountFee
+  ServiceCAccountFeeMonthly
+  ServiceCAccountFeeQuarterly
+  ServiceCFixedTariff
+  ServiceCBusiDepAccBreakage
+  ServiceCMinimumMonthlyFee
+  ServiceCOther
+}
+"""
+Min Max type
+"""
+enum OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_MinMaxType {
+  Minimum
+  Maximum
+}
+"""
+Period e.g. day, week, month etc. for which the fee/charge is capped
+"""
+enum OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_CappingPeriod {
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+"""
+Other fee type code which is not available in the standard code set
+"""
+type OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about any caps (maximum charges) that apply to a particular or group of fee/charge
+"""
+type OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap {
+  "Fee/charge type which is being capped"
+  FeeType: [OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_FeeType_FeeType]
+  "Min Max type"
+  MinMaxType: OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_MinMaxType!
+  "fee/charges are captured dependent on the number of occurrences rather than capped at a particular amount"
+  FeeCapOccurrence: Float
+  "Cap amount charged for a fee/charge (where it is charged in terms of an amount rather than a rate)"
+  FeeCapAmount: String
+  "Period e.g. day, week, month etc. for which the fee/charge is capped"
+  CappingPeriod: OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_CappingPeriod
+  "Free text for adding  extra details for fee charge cap"
+  Notes: [String]
+  "Other fee type code which is not available in the standard code set"
+  OtherFeeType: OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_OtherFeeType
+}
+type OBBCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeCategoryType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Categorisation of fees and charges into standard categories.
+"""
+enum OBBCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeType_FeeCategory {
+  Other
+  Servicing
+}
+"""
+Other Fee/charge type which is not available in the standard code set
+"""
+type OBBCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Categorisation of fees and charges into standard categories."
+  FeeCategory: OBBCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeType_FeeCategory!
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other fee rate type which is not available in the standard code set
+"""
+type OBBCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeRateType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other application frequencies not covered in the standard code list
+"""
+type OBBCAData1_OtherFeesCharges_FeeChargeDetail_OtherApplicationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other calculation frequency which is not available in standard code set.
+"""
+type OBBCAData1_OtherFeesCharges_FeeChargeDetail_OtherCalculationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Range or amounts or rates for which the fee/charge applies
+"""
+type OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeApplicableRange {
+  "Minimum Amount on which fee/charge is applicable (where it is expressed as an amount)"
+  MinimumAmount: String
+  "Maximum Amount on which fee is applicable (where it is expressed as an amount)"
+  MaximumAmount: String
+  "Minimum rate on which fee/charge is applicable(where it is expressed as an rate)"
+  MinimumRate: String
+  "Maximum rate on which fee/charge is applicable(where it is expressed as an rate)"
+  MaximumRate: String
+}
+"""
+Other fees/charges details
+"""
+type OBBCAData1_OtherFeesCharges_FeeChargeDetail {
+  "Categorisation of fees and charges into standard categories."
+  FeeCategory: OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeCategory!
+  "Fee/Charge Type"
+  FeeType: OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeType!
+  "Fee/charge which is usually negotiable rather than a fixed amount"
+  NegotiableIndicator: Boolean
+  "Fee Amount charged for a fee/charge (where it is charged in terms of an amount rather than a rate)"
+  FeeAmount: String
+  "Rate charged for Fee/Charge (where it is charged in terms of a rate rather than an amount)"
+  FeeRate: String
+  "Rate type for Fee/Charge (where it is charged in terms of a rate rather than an amount)"
+  FeeRateType: OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeRateType
+  "How frequently the fee/charge is applied to the account"
+  ApplicationFrequency: OBBCAData1_OtherFeesCharges_FeeChargeDetail_ApplicationFrequency!
+  "How frequently the fee/charge is calculated"
+  CalculationFrequency: OBBCAData1_OtherFeesCharges_FeeChargeDetail_CalculationFrequency
+  "Optional additional notes to supplement the fee/charge details."
+  Notes: [String]
+  "Details about any caps (maximum charges) that apply to a particular or group of fee/charge"
+  FeeChargeCap: OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap
+  OtherFeeCategoryType: OBBCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeCategoryType
+  "Other Fee/charge type which is not available in the standard code set"
+  OtherFeeType: OBBCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeType
+  "Other fee rate type which is not available in the standard code set"
+  OtherFeeRateType: OBBCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeRateType
+  "Other application frequencies not covered in the standard code list"
+  OtherApplicationFrequency: OBBCAData1_OtherFeesCharges_FeeChargeDetail_OtherApplicationFrequency
+  "Other calculation frequency which is not available in standard code set."
+  OtherCalculationFrequency: OBBCAData1_OtherFeesCharges_FeeChargeDetail_OtherCalculationFrequency
+  "Range or amounts or rates for which the fee/charge applies"
+  FeeApplicableRange: OBBCAData1_OtherFeesCharges_FeeChargeDetail_FeeApplicableRange
+}
+"""
+Fee/charge type which is being capped
+"""
+enum OBBCAData1_OtherFeesCharges_FeeChargeCap_FeeType_FeeType {
+  Other
+  ServiceCAccountFee
+  ServiceCAccountFeeMonthly
+  ServiceCAccountFeeQuarterly
+  ServiceCFixedTariff
+  ServiceCBusiDepAccBreakage
+  ServiceCMinimumMonthlyFee
+  ServiceCOther
+}
+"""
+Min Max type
+"""
+enum OBBCAData1_OtherFeesCharges_FeeChargeCap_MinMaxType {
+  Minimum
+  Maximum
+}
+"""
+Period e.g. day, week, month etc. for which the fee/charge is capped
+"""
+enum OBBCAData1_OtherFeesCharges_FeeChargeCap_CappingPeriod {
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+"""
+Other fee type code which is not available in the standard code set
+"""
+type OBBCAData1_OtherFeesCharges_FeeChargeCap_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about any caps (maximum charges) that apply to a particular or group of fee/charge
+"""
+type OBBCAData1_OtherFeesCharges_FeeChargeCap {
+  "Fee/charge type which is being capped"
+  FeeType: [OBBCAData1_OtherFeesCharges_FeeChargeCap_FeeType_FeeType]
+  "Min Max type"
+  MinMaxType: OBBCAData1_OtherFeesCharges_FeeChargeCap_MinMaxType!
+  "fee/charges are captured dependent on the number of occurrences rather than capped at a particular amount"
+  FeeCapOccurrence: Float
+  "Cap amount charged for a fee/charge (where it is charged in terms of an amount rather than a rate)"
+  FeeCapAmount: String
+  "Period e.g. day, week, month etc. for which the fee/charge is capped"
+  CappingPeriod: OBBCAData1_OtherFeesCharges_FeeChargeCap_CappingPeriod
+  "Free text for adding  extra details for fee charge cap"
+  Notes: [String]
+  "Other fee type code which is not available in the standard code set"
+  OtherFeeType: OBBCAData1_OtherFeesCharges_FeeChargeCap_OtherFeeType
+}
+"""
+Contains details of fees and charges which are not associated with either Overdraft or features/benefits
+"""
+type OBBCAData1_OtherFeesCharges {
+  "TariffType which defines the fee and charges."
+  TariffType: OBBCAData1_OtherFeesCharges_TariffType
+  "Name of the tariff"
+  TariffName: String
+  "Other tariff type which is not in the standard list."
+  OtherTariffType: OBBCAData1_OtherFeesCharges_OtherTariffType
+  "Other fees/charges details"
+  FeeChargeDetail: OBBCAData1_OtherFeesCharges_FeeChargeDetail!
+  "Details about any caps (maximum charges) that apply to a particular or group of fee/charge"
+  FeeChargeCap: OBBCAData1_OtherFeesCharges_FeeChargeCap
+}
+type OBBCAData1 {
+  ProductDetails: OBBCAData1_ProductDetails
+  "Details about the interest that may be payable to the BCA account holders"
+  CreditInterest: OBBCAData1_CreditInterest
+  "Borrowing details"
+  Overdraft: OBBCAData1_Overdraft
+  "Contains details of fees and charges which are not associated with either Overdraft or features/benefits"
+  OtherFeesCharges: OBBCAData1_OtherFeesCharges
+}
+"""
+Balance type, in a coded form.
+"""
+enum OBBalanceType1Code {
+  ClosingAvailable
+  ClosingBooked
+  ClosingCleared
+  Expected
+  ForwardAvailable
+  Information
+  InterimAvailable
+  InterimBooked
+  InterimCleared
+  OpeningAvailable
+  OpeningBooked
+  OpeningCleared
+  PreviouslyClosedBooked
+}
+"""
+Set of elements used to fully identify the type of underlying transaction resulting in an entry.
+"""
+type OBBankTransactionCodeStructure1 {
+  "Specifies the family within a domain."
+  Code: String!
+  "Specifies the sub-product family within a specific family."
+  SubCode: String!
+}
+type OBBeneficiary3 {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String
+  "A unique and immutable identifier used to identify the beneficiary resource. This identifier has no meaning to the account owner."
+  BeneficiaryId: String
+  """
+  Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+  Usage: If available, the initiating party should provide this reference in the structured remittance information, to enable reconciliation by the creditor upon receipt of the amount of money.
+  If the business context requires the use of a creditor reference or a payment remit identification, and only one identifier can be passed through the end-to-end chain, the creditor's reference or payment remittance identification should be quoted in the end-to-end transaction identification.
+  """
+  Reference: String
+  "Financial institution servicing an account for the debtor."
+  CreditorAgent: OBBranchAndFinancialInstitutionIdentification6
+  "Provides the details to identify the beneficiary account."
+  CreditorAccount: OBCashAccount5
+}
+type OBBeneficiary3Basic {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String
+  "A unique and immutable identifier used to identify the beneficiary resource. This identifier has no meaning to the account owner."
+  BeneficiaryId: String
+  """
+  Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+  Usage: If available, the initiating party should provide this reference in the structured remittance information, to enable reconciliation by the creditor upon receipt of the amount of money.
+  If the business context requires the use of a creditor reference or a payment remit identification, and only one identifier can be passed through the end-to-end chain, the creditor's reference or payment remittance identification should be quoted in the end-to-end transaction identification.
+  """
+  Reference: String
+}
+type OBBeneficiary3Detail {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String
+  "A unique and immutable identifier used to identify the beneficiary resource. This identifier has no meaning to the account owner."
+  BeneficiaryId: String
+  """
+  Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+  Usage: If available, the initiating party should provide this reference in the structured remittance information, to enable reconciliation by the creditor upon receipt of the amount of money.
+  If the business context requires the use of a creditor reference or a payment remit identification, and only one identifier can be passed through the end-to-end chain, the creditor's reference or payment remittance identification should be quoted in the end-to-end transaction identification.
+  """
+  Reference: String
+  "Financial institution servicing an account for the debtor."
+  CreditorAgent: OBBranchAndFinancialInstitutionIdentification6
+  "Provides the details to identify the beneficiary account."
+  CreditorAccount: OBCashAccount5!
+}
+"""
+Indicates whether the balance is a credit or a debit balance. 
+Usage: A zero balance is considered to be a credit balance.
+"""
+enum OBCashBalance1_CreditDebitIndicator {
+  Credit
+  Debit
+}
+"""
+Set of elements used to define the balance details.
+"""
+type OBCashBalance1 {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  """
+  Indicates whether the balance is a credit or a debit balance. 
+  Usage: A zero balance is considered to be a credit balance.
+  """
+  CreditDebitIndicator: OBCashBalance1_CreditDebitIndicator!
+  "Balance type, in a coded form."
+  Type: OBBalanceType1Code!
+  """
+  Indicates the date (and time) of the balance.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  DateTime: String!
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  Amount: OBActiveOrHistoricCurrencyAndAmount!
+  "Set of elements used to provide details on the credit line."
+  CreditLine: [OBCreditLine1]
+}
+enum OBCreditDebitCode {
+  Credit
+  Debit
+}
+"""
+Set of elements used to provide details on the credit line.
+"""
+type OBCreditLine1 {
+  """
+  Indicates whether or not the credit line is included in the balance of the account.
+  Usage: If not present, credit line is not included in the balance amount of the account.
+  """
+  Included: Boolean!
+  "Limit type, in a coded form."
+  Type: OBExternalLimitType1Code
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  Amount: OBActiveOrHistoricCurrencyAndAmount
+}
+"""
+Set of elements used to provide details on the currency exchange.
+"""
+type OBCurrencyExchange5 {
+  "Currency from which an amount is to be converted in a currency conversion."
+  SourceCurrency: String!
+  "Currency from which an amount is to be converted in a currency conversion."
+  TargetCurrency: String
+  "Currency from which an amount is to be converted in a currency conversion."
+  UnitCurrency: String
+  """
+  Factor used to convert an amount from one currency into another. This reflects the price at which one currency was bought with another currency.
+  Usage: ExchangeRate expresses the ratio between UnitCurrency and QuotedCurrency (ExchangeRate = UnitCurrency/QuotedCurrency).
+  """
+  ExchangeRate: Float!
+  "Unique identification to unambiguously identify the foreign exchange contract."
+  ContractIdentification: String
+  """
+  Date and time at which an exchange rate is quoted.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  QuotationDate: String
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  InstructedAmount: OBActiveOrHistoricCurrencyAndAmount
+}
+"""
+Account to or from which a cash entry is made.
+"""
+type OBDirectDebit1 {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "A unique and immutable identifier used to identify the direct debit resource. This identifier has no meaning to the account owner."
+  DirectDebitId: String
+  "Direct Debit reference. For AUDDIS service users provide Core Reference. For non AUDDIS service users provide Core reference if possible or last used reference."
+  MandateIdentification: String!
+  "Specifies the status of the direct debit in code form."
+  DirectDebitStatusCode: OBExternalDirectDebitStatus1Code
+  "Name of Service User."
+  Name: String!
+  """
+  Date of most recent direct debit collection.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  PreviousPaymentDateTime: String
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  PreviousPaymentAmount: OBActiveOrHistoricCurrencyAndAmount
+}
+"""
+Status of a transaction entry on the books of the account servicer.
+"""
+enum OBEntryStatus1Code {
+  Booked
+  Pending
+}
+"""
+Specifies the sub type of account (product family group).
+"""
+enum OBExternalAccountSubType1Code {
+  ChargeCard
+  CreditCard
+  CurrentAccount
+  EMoney
+  Loan
+  Mortgage
+  PrePaidCard
+  Savings
+}
+"""
+Specifies the type of account (personal or business).
+"""
+enum OBExternalAccountType1Code {
+  Business
+  Personal
+}
+"""
+The card authorisation type.
+"""
+enum OBExternalCardAuthorisationType1Code {
+  ConsumerDevice
+  Contactless
+  None
+  PIN
+}
+"""
+Name of the card scheme.
+"""
+enum OBExternalCardSchemeType1Code {
+  AmericanExpress
+  Diners
+  Discover
+  MasterCard
+  VISA
+}
+"""
+Specifies the status of the direct debit in code form.
+"""
+enum OBExternalDirectDebitStatus1Code {
+  Active
+  Inactive
+}
+"""
+Limit type, in a coded form.
+"""
+enum OBExternalLimitType1Code {
+  Available
+  Credit
+  Emergency
+  PreAgreed
+  Temporary
+}
+"""
+Offer type, in a coded form.
+"""
+enum OBExternalOfferType1Code {
+  BalanceTransfer
+  LimitIncrease
+  MoneyTransfer
+  Other
+  PromotionalRate
+}
+"""
+Party type, in a coded form.
+"""
+enum OBExternalPartyType1Code {
+  Delegate
+  Joint
+  Sole
+}
+"""
+Specifies the Open Banking account access data types. This is a list of the data clusters being consented by the PSU, and requested for authorisation with the ASPSP.
+"""
+enum OBExternalPermissions1Code {
+  ReadAccountsBasic
+  ReadAccountsDetail
+  ReadBalances
+  ReadBeneficiariesBasic
+  ReadBeneficiariesDetail
+  ReadDirectDebits
+  ReadOffers
+  ReadPAN
+  ReadParty
+  ReadPartyPSU
+  ReadProducts
+  ReadScheduledPaymentsBasic
+  ReadScheduledPaymentsDetail
+  ReadStandingOrdersBasic
+  ReadStandingOrdersDetail
+  ReadStatementsBasic
+  ReadStatementsDetail
+  ReadTransactionsBasic
+  ReadTransactionsCredits
+  ReadTransactionsDebits
+  ReadTransactionsDetail
+}
+"""
+Descriptive code for the product category. 
+If ProductType - "Other" is chosen, the object OtherProductType must be populated with name, and description.
+"""
+enum OBExternalProductType1Code {
+  BusinessCurrentAccount
+  CommercialCreditCard
+  Other
+  PersonalCurrentAccount
+  SMELoan
+}
+"""
+Specifies the status of consent resource in code form.
+"""
+enum OBExternalRequestStatus1Code {
+  Authorised
+  AwaitingAuthorisation
+  Rejected
+  Revoked
+}
+"""
+Specifies the scheduled payment date type requested
+"""
+enum OBExternalScheduleType1Code {
+  Arrival
+  Execution
+}
+"""
+Specifies the status of the standing order in code form.
+"""
+enum OBExternalStandingOrderStatus1Code {
+  Active
+  Inactive
+}
+"""
+Statement type, in a coded form.
+"""
+enum OBExternalStatementType1Code {
+  AccountClosure
+  AccountOpening
+  Annual
+  Interim
+  RegularPeriodic
+}
+"""
+Details of the merchant involved in the transaction.
+"""
+type OBMerchantDetails1 {
+  "Name by which the merchant is known."
+  MerchantName: String
+  "Category code conform to ISO 18245, related to the type of services or goods the merchant provides for the transaction."
+  MerchantCategoryCode: String
+}
+type OBOffer1 {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "A unique and immutable identifier used to identify the offer resource. This identifier has no meaning to the account owner."
+  OfferId: String
+  "Offer type, in a coded form."
+  OfferType: OBExternalOfferType1Code
+  "Further details of the offer."
+  Description: String
+  """
+  Date and time at which the offer starts.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  StartDateTime: String
+  """
+  Date and time at which the offer ends.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  EndDateTime: String
+  "Rate associated with the offer type."
+  Rate: String
+  "Value associated with the offer type."
+  Value: Int
+  "Further details of the term of the offer."
+  Term: String
+  "URL (Uniform Resource Locator) where documentation on the offer can be found"
+  URL: String
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  Amount: OBActiveOrHistoricCurrencyAndAmount
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  Fee: OBActiveOrHistoricCurrencyAndAmount
+}
+"""
+Market segmentation is a marketing term referring to the aggregating of prospective buyers into groups, or segments, that have common needs and respond similarly to a marketing action. Market segmentation enables companies to target different categories of consumers who perceive the full value of certain products and services differently from one another.
+
+Read more: Market Segmentation http://www.investopedia.com/terms/m/marketsegmentation.asp#ixzz4gfEEalTd 
+With respect to PCA products, they are segmented in relation to different markets that they wish to focus on. 
+"""
+enum OBPCAData1_ProductDetails_Segment_Segment {
+  Basic
+  BenefitAndReward
+  CreditInterest
+  Cashback
+  General
+  Graduate
+  Other
+  Overdraft
+  Packaged
+  Premium
+  Reward
+  Student
+  YoungAdult
+  Youth
+}
+type OBPCAData1_ProductDetails {
+  """
+  Market segmentation is a marketing term referring to the aggregating of prospective buyers into groups, or segments, that have common needs and respond similarly to a marketing action. Market segmentation enables companies to target different categories of consumers who perceive the full value of certain products and services differently from one another.
+  
+  Read more: Market Segmentation http://www.investopedia.com/terms/m/marketsegmentation.asp#ixzz4gfEEalTd 
+  With respect to PCA products, they are segmented in relation to different markets that they wish to focus on. 
+  """
+  Segment: [OBPCAData1_ProductDetails_Segment_Segment]
+  "The maximum relevant charges that could accrue as defined fully in Part 7 of the CMA order"
+  MonthlyMaximumCharge: String
+  "Optional additional notes to supplement the Core product details"
+  Notes: [String]
+}
+"""
+The methodology of how credit interest is charged. It can be:-
+
+1. Banded
+Interest rates are banded. i.e. Increasing rate on whole balance as balance increases.
+
+2. Tiered
+Interest rates are tiered. i.e. increasing rate for each tier as balance increases, but interest paid on tier fixed for that tier and not on whole balance.
+
+3. Whole
+The same interest rate is applied irrespective of the PCA balance
+"""
+enum OBPCAData1_CreditInterest_TierBandSet_TierBandMethod {
+  Tiered
+  Whole
+}
+"""
+Methods of calculating interest
+"""
+enum OBPCAData1_CreditInterest_TierBandSet_CalculationMethod {
+  Compound
+  SimpleInterest
+}
+"""
+Describes whether accrued interest is payable only to the PCA or to another bank account
+"""
+enum OBPCAData1_CreditInterest_TierBandSet_Destination {
+  PayAway
+  SelfCredit
+}
+"""
+How often is credit interest calculated for the account.
+"""
+enum OBPCAData1_CreditInterest_TierBandSet_TierBand_CalculationFrequency {
+  PerAcademicTerm
+  Daily
+  HalfYearly
+  Monthly
+  Other
+  Quarterly
+  PerStatementDate
+  Weekly
+  Yearly
+}
+"""
+How often is interest applied to the PCA for this tier/band i.e. how often the financial institution pays accumulated interest to the customer's PCA.
+"""
+enum OBPCAData1_CreditInterest_TierBandSet_TierBand_ApplicationFrequency {
+  PerAcademicTerm
+  Daily
+  HalfYearly
+  Monthly
+  Other
+  Quarterly
+  PerStatementDate
+  Weekly
+  Yearly
+}
+"""
+Amount on which Interest applied.
+"""
+enum OBPCAData1_CreditInterest_TierBandSet_TierBand_DepositInterestAppliedCoverage {
+  Tiered
+  Whole
+}
+"""
+Type of interest rate, Fixed or Variable
+"""
+enum OBPCAData1_CreditInterest_TierBandSet_TierBand_FixedVariableInterestRateType {
+  Fixed
+  Variable
+}
+"""
+Interest rate types, other than AER, which financial institutions may use to describe the annual interest rate payable to the PCA.
+"""
+enum OBPCAData1_CreditInterest_TierBandSet_TierBand_BankInterestRateType {
+  LinkedBaseRate
+  Gross
+  Net
+  Other
+}
+"""
+Other interest rate types which are not available in the standard code list
+"""
+type OBPCAData1_CreditInterest_TierBandSet_TierBand_OtherBankInterestType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other application frequencies that are not available in the standard code list
+"""
+type OBPCAData1_CreditInterest_TierBandSet_TierBand_OtherApplicationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other calculation frequency which is not available in the standard code set.
+"""
+type OBPCAData1_CreditInterest_TierBandSet_TierBand_OtherCalculationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Tier Band Details
+"""
+type OBPCAData1_CreditInterest_TierBandSet_TierBand {
+  "Unique and unambiguous identification of a  Tier Band for a PCA."
+  Identification: String
+  "Minimum deposit value for which the credit interest tier applies."
+  TierValueMinimum: String!
+  "Maximum deposit value for which the credit interest tier applies."
+  TierValueMaximum: String
+  "How often is credit interest calculated for the account."
+  CalculationFrequency: OBPCAData1_CreditInterest_TierBandSet_TierBand_CalculationFrequency
+  "How often is interest applied to the PCA for this tier/band i.e. how often the financial institution pays accumulated interest to the customer's PCA."
+  ApplicationFrequency: OBPCAData1_CreditInterest_TierBandSet_TierBand_ApplicationFrequency!
+  "Amount on which Interest applied."
+  DepositInterestAppliedCoverage: OBPCAData1_CreditInterest_TierBandSet_TierBand_DepositInterestAppliedCoverage
+  "Type of interest rate, Fixed or Variable"
+  FixedVariableInterestRateType: OBPCAData1_CreditInterest_TierBandSet_TierBand_FixedVariableInterestRateType!
+  """
+  The annual equivalent rate (AER) is interest that is calculated under the assumption that any interest paid is combined with the original balance and the next interest payment will be based on the slightly higher account balance. Overall, this means that interest can be compounded several times in a year depending on the number of times that interest payments are made. 
+  
+  Read more: Annual Equivalent Rate (AER) http://www.investopedia.com/terms/a/aer.asp#ixzz4gfR7IO1A
+  """
+  AER: String!
+  "Interest rate types, other than AER, which financial institutions may use to describe the annual interest rate payable to the PCA."
+  BankInterestRateType: OBPCAData1_CreditInterest_TierBandSet_TierBand_BankInterestRateType
+  "Bank Interest for the PCA product"
+  BankInterestRate: String
+  "Optional additional notes to supplement the Tier Band details"
+  Notes: [String]
+  "Other interest rate types which are not available in the standard code list"
+  OtherBankInterestType: OBPCAData1_CreditInterest_TierBandSet_TierBand_OtherBankInterestType
+  "Other application frequencies that are not available in the standard code list"
+  OtherApplicationFrequency: OBPCAData1_CreditInterest_TierBandSet_TierBand_OtherApplicationFrequency
+  "Other calculation frequency which is not available in the standard code set."
+  OtherCalculationFrequency: OBPCAData1_CreditInterest_TierBandSet_TierBand_OtherCalculationFrequency
+}
+"""
+The group of tiers or bands for which credit interest can be applied.
+"""
+type OBPCAData1_CreditInterest_TierBandSet {
+  """
+  The methodology of how credit interest is charged. It can be:-
+  
+  1. Banded
+  Interest rates are banded. i.e. Increasing rate on whole balance as balance increases.
+  
+  2. Tiered
+  Interest rates are tiered. i.e. increasing rate for each tier as balance increases, but interest paid on tier fixed for that tier and not on whole balance.
+  
+  3. Whole
+  The same interest rate is applied irrespective of the PCA balance
+  """
+  TierBandMethod: OBPCAData1_CreditInterest_TierBandSet_TierBandMethod!
+  "Methods of calculating interest"
+  CalculationMethod: OBPCAData1_CreditInterest_TierBandSet_CalculationMethod
+  "Describes whether accrued interest is payable only to the PCA or to another bank account"
+  Destination: OBPCAData1_CreditInterest_TierBandSet_Destination
+  "Optional additional notes to supplement the Tier Band Set details"
+  Notes: [String]
+  "Tier Band Details"
+  TierBand: OBPCAData1_CreditInterest_TierBandSet_TierBand!
+}
+"""
+Details about the interest that may be payable to the PCA account holders
+"""
+type OBPCAData1_CreditInterest {
+  "The group of tiers or bands for which credit interest can be applied."
+  TierBandSet: OBPCAData1_CreditInterest_TierBandSet!
+}
+"""
+The methodology of how overdraft is charged. It can be:
+'Whole'  Where the same charge/rate is applied to the entirety of the overdraft balance (where charges are applicable). 
+'Tiered' Where different charges/rates are applied dependent on overdraft maximum and minimum balance amount tiers defined by the lending financial organisation
+'Banded' Where different charges/rates are applied dependent on overdraft maximum and minimum balance amount bands defined by a government organisation.
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_TierBandMethod {
+  Tiered
+  Whole
+  Banded
+}
+"""
+An overdraft can either be 'committed' which means that the facility cannot be withdrawn without reasonable notification before it's agreed end date, or 'on demand' which means that the financial institution can demand repayment at any point in time.
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftType {
+  Committed
+  OnDemand
+  Other
+}
+"""
+Interest charged on whole amount or tiered/banded
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftInterestChargingCoverage {
+  Tiered
+  Whole
+}
+"""
+Overdraft fee type
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_FeeType_FeeType {
+  ArrangedOverdraft
+  EmergencyBorrowing
+  BorrowingItem
+  OverdraftRenewal
+  AnnualReview
+  OverdraftSetup
+  Surcharge
+  TempOverdraft
+  UnauthorisedBorrowing
+  UnauthorisedPaidTrans
+  Other
+  UnauthorisedUnpaidTrans
+}
+"""
+Indicates that this is the minimum/ maximum fee/charge that can be applied by the financial institution
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_MinMaxType {
+  Minimum
+  Maximum
+}
+"""
+Period e.g. day, week, month etc. for which the fee/charge is capped
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_CappingPeriod {
+  AcademicTerm
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+"""
+Other fee type code which is not available in the standard code set
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about any caps (maximum charges) that apply to a particular fee/charge
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap {
+  "Fee/charge type which is being capped"
+  FeeType: [OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_FeeType_FeeType]
+  "Specifies for the overdraft control feature/benefit"
+  OverdraftControlIndicator: Boolean
+  "Indicates that this is the minimum/ maximum fee/charge that can be applied by the financial institution"
+  MinMaxType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_MinMaxType!
+  "fee/charges are captured dependent on the number of occurrences rather than capped at a particular amount"
+  FeeCapOccurrence: Float
+  "Cap amount charged for a fee/charge"
+  FeeCapAmount: String
+  "Period e.g. day, week, month etc. for which the fee/charge is capped"
+  CappingPeriod: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_CappingPeriod
+  "Notes related to Overdraft fee charge cap"
+  Notes: [String]
+  "Other fee type code which is not available in the standard code set"
+  OtherFeeType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap_OtherFeeType
+}
+"""
+Overdraft fee type
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeType {
+  ArrangedOverdraft
+  EmergencyBorrowing
+  BorrowingItem
+  OverdraftRenewal
+  AnnualReview
+  OverdraftSetup
+  Surcharge
+  TempOverdraft
+  UnauthorisedBorrowing
+  UnauthorisedPaidTrans
+  Other
+  UnauthorisedUnpaidTrans
+}
+"""
+Rate type for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeRateType {
+  LinkedBaseRate
+  Gross
+  Net
+  Other
+}
+"""
+Frequency at which the overdraft charge is applied to the account
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_ApplicationFrequency {
+  AccountClosing
+  AccountOpening
+  AcademicTerm
+  ChargingPeriod
+  Daily
+  PerItem
+  Monthly
+  OnAccountAnniversary
+  Other
+  PerHour
+  PerOccurrence
+  PerSheet
+  PerTransaction
+  PerTransactionAmount
+  PerTransactionPercentage
+  Quarterly
+  SixMonthly
+  StatementMonthly
+  Weekly
+  Yearly
+}
+"""
+How often is the overdraft fee/charge calculated for the account.
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_CalculationFrequency {
+  AccountClosing
+  AccountOpening
+  AcademicTerm
+  ChargingPeriod
+  Daily
+  PerItem
+  Monthly
+  OnAccountAnniversary
+  Other
+  PerHour
+  PerOccurrence
+  PerSheet
+  PerTransaction
+  PerTransactionAmount
+  PerTransactionPercentage
+  Quarterly
+  SixMonthly
+  StatementMonthly
+  Weekly
+  Yearly
+}
+"""
+Other Fee type which is not available in the standard code set
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other fee rate type code which is not available in the standard code set
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeRateType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other application frequencies that are not available in the standard code list
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherApplicationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other calculation frequency which is not available in the standard code set.
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherCalculationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Overdraft fee type
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_FeeType_FeeType {
+  ArrangedOverdraft
+  EmergencyBorrowing
+  BorrowingItem
+  OverdraftRenewal
+  AnnualReview
+  OverdraftSetup
+  Surcharge
+  TempOverdraft
+  UnauthorisedBorrowing
+  UnauthorisedPaidTrans
+  Other
+  UnauthorisedUnpaidTrans
+}
+"""
+Indicates that this is the minimum/ maximum fee/charge that can be applied by the financial institution
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_MinMaxType {
+  Minimum
+  Maximum
+}
+"""
+Period e.g. day, week, month etc. for which the fee/charge is capped
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_CappingPeriod {
+  AcademicTerm
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+"""
+Other fee type code which is not available in the standard code set
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about any caps (maximum charges) that apply to a particular fee/charge
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap {
+  "Fee/charge type which is being capped"
+  FeeType: [OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_FeeType_FeeType]
+  "Specifies for the overdraft control feature/benefit"
+  OverdraftControlIndicator: Boolean
+  "Indicates that this is the minimum/ maximum fee/charge that can be applied by the financial institution"
+  MinMaxType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_MinMaxType!
+  "fee/charges are captured dependent on the number of occurrences rather than capped at a particular amount"
+  FeeCapOccurrence: Float
+  "Cap amount charged for a fee/charge"
+  FeeCapAmount: String
+  "Period e.g. day, week, month etc. for which the fee/charge is capped"
+  CappingPeriod: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_CappingPeriod
+  "Notes related to Overdraft fee charge cap"
+  Notes: [String]
+  "Other fee type code which is not available in the standard code set"
+  OtherFeeType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_OtherFeeType
+}
+"""
+Details about the fees/charges
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail {
+  "Overdraft fee type"
+  FeeType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeType!
+  "Specifies for the overdraft control feature/benefit"
+  OverdraftControlIndicator: Boolean
+  "Every additional tranche of an overdraft balance to which an overdraft fee is applied"
+  IncrementalBorrowingAmount: String
+  "Amount charged for an overdraft fee/charge (where it is charged in terms of an amount rather than a rate)"
+  FeeAmount: String
+  "Rate charged for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)"
+  FeeRate: String
+  "Rate type for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)"
+  FeeRateType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeRateType
+  "Frequency at which the overdraft charge is applied to the account"
+  ApplicationFrequency: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_ApplicationFrequency!
+  "How often is the overdraft fee/charge calculated for the account."
+  CalculationFrequency: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_CalculationFrequency
+  "Free text for capturing any other info related to Overdraft Fees Charge Details"
+  Notes: [String]
+  "Other Fee type which is not available in the standard code set"
+  OtherFeeType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeType
+  "Other fee rate type code which is not available in the standard code set"
+  OtherFeeRateType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeRateType
+  "Other application frequencies that are not available in the standard code list"
+  OtherApplicationFrequency: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherApplicationFrequency
+  "Other calculation frequency which is not available in the standard code set."
+  OtherCalculationFrequency: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherCalculationFrequency
+  "Details about any caps (maximum charges) that apply to a particular fee/charge"
+  OverdraftFeeChargeCap: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap
+}
+"""
+Overdraft fees and charges
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges {
+  "Details about any caps (maximum charges) that apply to a particular fee/charge"
+  OverdraftFeeChargeCap: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeCap
+  "Details about the fees/charges"
+  OverdraftFeeChargeDetail: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges_OverdraftFeeChargeDetail!
+}
+"""
+Provides overdraft details for a specific tier or band
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand {
+  "Unique and unambiguous identification of a  Tier Band for a overdraft."
+  Identification: String
+  "Minimum value of Overdraft Tier/Band"
+  TierValueMin: String!
+  "Maximum value of Overdraft Tier/Band"
+  TierValueMax: String
+  "Interest charged on whole amount or tiered/banded"
+  OverdraftInterestChargingCoverage: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftInterestChargingCoverage
+  "Indicates that a bank provides the overdraft limit up to TierValueMIn to all customers automatically"
+  BankGuaranteedIndicator: Boolean
+  """
+  EAR means Effective Annual Rate and/or Equivalent Annual Rate (frequently
+  used interchangeably), being the actual annual interest rate of an Overdraft.
+  """
+  EAR: String
+  "Optional additional notes to supplement the Tier/band details"
+  Notes: [String]
+  "Overdraft fees and charges"
+  OverdraftFeesCharges: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand_OverdraftFeesCharges
+}
+"""
+Overdraft fee type
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_FeeType_FeeType {
+  ArrangedOverdraft
+  EmergencyBorrowing
+  BorrowingItem
+  OverdraftRenewal
+  AnnualReview
+  OverdraftSetup
+  Surcharge
+  TempOverdraft
+  UnauthorisedBorrowing
+  UnauthorisedPaidTrans
+  Other
+  UnauthorisedUnpaidTrans
+}
+"""
+Indicates that this is the minimum/ maximum fee/charge that can be applied by the financial institution
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_MinMaxType {
+  Minimum
+  Maximum
+}
+"""
+Period e.g. day, week, month etc. for which the fee/charge is capped
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_CappingPeriod {
+  AcademicTerm
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+"""
+Other fee type code which is not available in the standard code set
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about any caps (maximum charges) that apply to a particular fee/charge
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap {
+  "Fee/charge type which is being capped"
+  FeeType: [OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_FeeType_FeeType]
+  "Specifies for the overdraft control feature/benefit"
+  OverdraftControlIndicator: Boolean
+  "Indicates that this is the minimum/ maximum fee/charge that can be applied by the financial institution"
+  MinMaxType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_MinMaxType!
+  "fee/charges are captured dependent on the number of occurrences rather than capped at a particular amount"
+  FeeCapOccurrence: Float
+  "Cap amount charged for a fee/charge"
+  FeeCapAmount: String
+  "Period e.g. day, week, month etc. for which the fee/charge is capped"
+  CappingPeriod: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_CappingPeriod
+  "Notes related to Overdraft fee charge cap"
+  Notes: [String]
+  "Other fee type code which is not available in the standard code set"
+  OtherFeeType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap_OtherFeeType
+}
+"""
+Overdraft fee type
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeType {
+  ArrangedOverdraft
+  EmergencyBorrowing
+  BorrowingItem
+  OverdraftRenewal
+  AnnualReview
+  OverdraftSetup
+  Surcharge
+  TempOverdraft
+  UnauthorisedBorrowing
+  UnauthorisedPaidTrans
+  Other
+  UnauthorisedUnpaidTrans
+}
+"""
+Rate type for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeRateType {
+  LinkedBaseRate
+  Gross
+  Net
+  Other
+}
+"""
+Frequency at which the overdraft charge is applied to the account
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_ApplicationFrequency {
+  AccountClosing
+  AccountOpening
+  AcademicTerm
+  ChargingPeriod
+  Daily
+  PerItem
+  Monthly
+  OnAccountAnniversary
+  Other
+  PerHour
+  PerOccurrence
+  PerSheet
+  PerTransaction
+  PerTransactionAmount
+  PerTransactionPercentage
+  Quarterly
+  SixMonthly
+  StatementMonthly
+  Weekly
+  Yearly
+}
+"""
+How often is the overdraft fee/charge calculated for the account.
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_CalculationFrequency {
+  AccountClosing
+  AccountOpening
+  AcademicTerm
+  ChargingPeriod
+  Daily
+  PerItem
+  Monthly
+  OnAccountAnniversary
+  Other
+  PerHour
+  PerOccurrence
+  PerSheet
+  PerTransaction
+  PerTransactionAmount
+  PerTransactionPercentage
+  Quarterly
+  SixMonthly
+  StatementMonthly
+  Weekly
+  Yearly
+}
+"""
+Other Fee type which is not available in the standard code set
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other fee rate type code which is not available in the standard code set
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeRateType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other application frequencies that are not available in the standard code list
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherApplicationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other calculation frequency which is not available in the standard code set.
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherCalculationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Overdraft fee type
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_FeeType_FeeType {
+  ArrangedOverdraft
+  EmergencyBorrowing
+  BorrowingItem
+  OverdraftRenewal
+  AnnualReview
+  OverdraftSetup
+  Surcharge
+  TempOverdraft
+  UnauthorisedBorrowing
+  UnauthorisedPaidTrans
+  Other
+  UnauthorisedUnpaidTrans
+}
+"""
+Indicates that this is the minimum/ maximum fee/charge that can be applied by the financial institution
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_MinMaxType {
+  Minimum
+  Maximum
+}
+"""
+Period e.g. day, week, month etc. for which the fee/charge is capped
+"""
+enum OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_CappingPeriod {
+  AcademicTerm
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+"""
+Other fee type code which is not available in the standard code set
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about any caps (maximum charges) that apply to a particular fee/charge
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap {
+  "Fee/charge type which is being capped"
+  FeeType: [OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_FeeType_FeeType]
+  "Specifies for the overdraft control feature/benefit"
+  OverdraftControlIndicator: Boolean
+  "Indicates that this is the minimum/ maximum fee/charge that can be applied by the financial institution"
+  MinMaxType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_MinMaxType!
+  "fee/charges are captured dependent on the number of occurrences rather than capped at a particular amount"
+  FeeCapOccurrence: Float
+  "Cap amount charged for a fee/charge"
+  FeeCapAmount: String
+  "Period e.g. day, week, month etc. for which the fee/charge is capped"
+  CappingPeriod: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_CappingPeriod
+  "Notes related to Overdraft fee charge cap"
+  Notes: [String]
+  "Other fee type code which is not available in the standard code set"
+  OtherFeeType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap_OtherFeeType
+}
+"""
+Details about the fees/charges
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail {
+  "Overdraft fee type"
+  FeeType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeType!
+  "Specifies for the overdraft control feature/benefit"
+  OverdraftControlIndicator: Boolean
+  "Every additional tranche of an overdraft balance to which an overdraft fee is applied"
+  IncrementalBorrowingAmount: String
+  "Amount charged for an overdraft fee/charge (where it is charged in terms of an amount rather than a rate)"
+  FeeAmount: String
+  "Rate charged for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)"
+  FeeRate: String
+  "Rate type for overdraft fee/charge (where it is charged in terms of a rate rather than an amount)"
+  FeeRateType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_FeeRateType
+  "Frequency at which the overdraft charge is applied to the account"
+  ApplicationFrequency: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_ApplicationFrequency!
+  "How often is the overdraft fee/charge calculated for the account."
+  CalculationFrequency: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_CalculationFrequency
+  "Free text for capturing any other info related to Overdraft Fees Charge Details"
+  Notes: [String]
+  "Other Fee type which is not available in the standard code set"
+  OtherFeeType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeType
+  "Other fee rate type code which is not available in the standard code set"
+  OtherFeeRateType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherFeeRateType
+  "Other application frequencies that are not available in the standard code list"
+  OtherApplicationFrequency: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherApplicationFrequency
+  "Other calculation frequency which is not available in the standard code set."
+  OtherCalculationFrequency: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OtherCalculationFrequency
+  "Details about any caps (maximum charges) that apply to a particular fee/charge"
+  OverdraftFeeChargeCap: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail_OverdraftFeeChargeCap
+}
+"""
+Overdraft fees and charges details
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges {
+  "Details about any caps (maximum charges) that apply to a particular fee/charge"
+  OverdraftFeeChargeCap: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeCap
+  "Details about the fees/charges"
+  OverdraftFeeChargeDetail: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges_OverdraftFeeChargeDetail!
+}
+"""
+Tier band set details
+"""
+type OBPCAData1_Overdraft_OverdraftTierBandSet {
+  """
+  The methodology of how overdraft is charged. It can be:
+  'Whole'  Where the same charge/rate is applied to the entirety of the overdraft balance (where charges are applicable). 
+  'Tiered' Where different charges/rates are applied dependent on overdraft maximum and minimum balance amount tiers defined by the lending financial organisation
+  'Banded' Where different charges/rates are applied dependent on overdraft maximum and minimum balance amount bands defined by a government organisation.
+  """
+  TierBandMethod: OBPCAData1_Overdraft_OverdraftTierBandSet_TierBandMethod!
+  "An overdraft can either be 'committed' which means that the facility cannot be withdrawn without reasonable notification before it's agreed end date, or 'on demand' which means that the financial institution can demand repayment at any point in time."
+  OverdraftType: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftType
+  "Unique and unambiguous identification of a  Tier Band for a overdraft product."
+  Identification: String
+  "Indicates if the Overdraft is authorised (Y) or unauthorised (N)"
+  AuthorisedIndicator: Boolean
+  "When a customer exceeds their credit limit, a financial institution will not charge the customer unauthorised overdraft charges if they do not exceed by more than the buffer amount. Note: Authorised overdraft charges may still apply."
+  BufferAmount: String
+  "Optional additional notes to supplement the overdraft Tier Band Set details"
+  Notes: [String]
+  "Provides overdraft details for a specific tier or band"
+  OverdraftTierBand: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftTierBand!
+  "Overdraft fees and charges details"
+  OverdraftFeesCharges: OBPCAData1_Overdraft_OverdraftTierBandSet_OverdraftFeesCharges
+}
+"""
+Details about Overdraft rates, fees & charges
+"""
+type OBPCAData1_Overdraft {
+  "Associated Notes about the overdraft rates"
+  Notes: [String]
+  "Tier band set details"
+  OverdraftTierBandSet: OBPCAData1_Overdraft_OverdraftTierBandSet!
+}
+"""
+Categorisation of fees and charges into standard categories.
+"""
+enum OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeCategory {
+  Other
+  Servicing
+}
+"""
+Fee/Charge Type
+"""
+enum OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeType {
+  ServiceCAccountFee
+  ServiceCAccountFeeMonthly
+  ServiceCOther
+  Other
+}
+"""
+Rate type for Fee/Charge (where it is charged in terms of a rate rather than an amount)
+"""
+enum OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeRateType {
+  LinkedBaseRate
+  Gross
+  Net
+  Other
+}
+"""
+How frequently the fee/charge is applied to the account
+"""
+enum OBPCAData1_OtherFeesCharges_FeeChargeDetail_ApplicationFrequency {
+  AccountClosing
+  AccountOpening
+  AcademicTerm
+  ChargingPeriod
+  Daily
+  PerItem
+  Monthly
+  OnAccountAnniversary
+  Other
+  PerHour
+  PerOccurrence
+  PerSheet
+  PerTransaction
+  PerTransactionAmount
+  PerTransactionPercentage
+  Quarterly
+  SixMonthly
+  StatementMonthly
+  Weekly
+  Yearly
+}
+"""
+How frequently the fee/charge is calculated
+"""
+enum OBPCAData1_OtherFeesCharges_FeeChargeDetail_CalculationFrequency {
+  AccountClosing
+  AccountOpening
+  AcademicTerm
+  ChargingPeriod
+  Daily
+  PerItem
+  Monthly
+  OnAccountAnniversary
+  Other
+  PerHour
+  PerOccurrence
+  PerSheet
+  PerTransaction
+  PerTransactionAmount
+  PerTransactionPercentage
+  Quarterly
+  SixMonthly
+  StatementMonthly
+  Weekly
+  Yearly
+}
+type OBPCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeCategoryType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Categorisation of fees and charges into standard categories.
+"""
+enum OBPCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeType_FeeCategory {
+  Other
+  Servicing
+}
+"""
+Other Fee/charge type which is not available in the standard code set
+"""
+type OBPCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Categorisation of fees and charges into standard categories."
+  FeeCategory: OBPCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeType_FeeCategory!
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other fee rate type which is not available in the standard code set
+"""
+type OBPCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeRateType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other application frequencies not covered in the standard code list
+"""
+type OBPCAData1_OtherFeesCharges_FeeChargeDetail_OtherApplicationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Other calculation frequency which is not available in standard code set.
+"""
+type OBPCAData1_OtherFeesCharges_FeeChargeDetail_OtherCalculationFrequency {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Fee/charge type which is being capped
+"""
+enum OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_FeeType_FeeType {
+  ServiceCAccountFee
+  ServiceCAccountFeeMonthly
+  ServiceCOther
+  Other
+}
+"""
+Indicates that this is the minimum/ maximum fee/charge that can be applied by the financial institution
+"""
+enum OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_MinMaxType {
+  Minimum
+  Maximum
+}
+"""
+Period e.g. day, week, month etc. for which the fee/charge is capped
+"""
+enum OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_CappingPeriod {
+  AcademicTerm
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+"""
+Other fee type code which is not available in the standard code set
+"""
+type OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about any caps (maximum charges) that apply to a particular fee/charge
+"""
+type OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap {
+  "Fee/charge type which is being capped"
+  FeeType: [OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_FeeType_FeeType]
+  "Indicates that this is the minimum/ maximum fee/charge that can be applied by the financial institution"
+  MinMaxType: OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_MinMaxType!
+  "fee/charges are captured dependent on the number of occurrences rather than capped at a particular amount"
+  FeeCapOccurrence: Float
+  "Cap amount charged for a fee/charge (where it is charged in terms of an amount rather than a rate)"
+  FeeCapAmount: String
+  "Period e.g. day, week, month etc. for which the fee/charge is capped"
+  CappingPeriod: OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_CappingPeriod
+  "Free text for adding  extra details for fee charge cap"
+  Notes: [String]
+  "Other fee type code which is not available in the standard code set"
+  OtherFeeType: OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap_OtherFeeType
+}
+"""
+Range or amounts or rates for which the fee/charge applies
+"""
+type OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeApplicableRange {
+  "Minimum Amount on which fee/charge is applicable (where it is expressed as an amount)"
+  MinimumAmount: String
+  "Maximum Amount on which fee is applicable (where it is expressed as an amount)"
+  MaximumAmount: String
+  "Minimum rate on which fee/charge is applicable(where it is expressed as an rate)"
+  MinimumRate: String
+  "Maximum rate on which fee/charge is applicable(where it is expressed as an rate)"
+  MaximumRate: String
+}
+"""
+Other fees/charges details
+"""
+type OBPCAData1_OtherFeesCharges_FeeChargeDetail {
+  "Categorisation of fees and charges into standard categories."
+  FeeCategory: OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeCategory!
+  "Fee/Charge Type"
+  FeeType: OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeType!
+  "Fee Amount charged for a fee/charge (where it is charged in terms of an amount rather than a rate)"
+  FeeAmount: String
+  "Rate charged for Fee/Charge (where it is charged in terms of a rate rather than an amount)"
+  FeeRate: String
+  "Rate type for Fee/Charge (where it is charged in terms of a rate rather than an amount)"
+  FeeRateType: OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeRateType
+  "How frequently the fee/charge is applied to the account"
+  ApplicationFrequency: OBPCAData1_OtherFeesCharges_FeeChargeDetail_ApplicationFrequency!
+  "How frequently the fee/charge is calculated"
+  CalculationFrequency: OBPCAData1_OtherFeesCharges_FeeChargeDetail_CalculationFrequency
+  "Optional additional notes to supplement the fee/charge details."
+  Notes: [String]
+  OtherFeeCategoryType: OBPCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeCategoryType
+  "Other Fee/charge type which is not available in the standard code set"
+  OtherFeeType: OBPCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeType
+  "Other fee rate type which is not available in the standard code set"
+  OtherFeeRateType: OBPCAData1_OtherFeesCharges_FeeChargeDetail_OtherFeeRateType
+  "Other application frequencies not covered in the standard code list"
+  OtherApplicationFrequency: OBPCAData1_OtherFeesCharges_FeeChargeDetail_OtherApplicationFrequency
+  "Other calculation frequency which is not available in standard code set."
+  OtherCalculationFrequency: OBPCAData1_OtherFeesCharges_FeeChargeDetail_OtherCalculationFrequency
+  "Details about any caps (maximum charges) that apply to a particular fee/charge"
+  FeeChargeCap: OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeChargeCap
+  "Range or amounts or rates for which the fee/charge applies"
+  FeeApplicableRange: OBPCAData1_OtherFeesCharges_FeeChargeDetail_FeeApplicableRange
+}
+"""
+Fee/charge type which is being capped
+"""
+enum OBPCAData1_OtherFeesCharges_FeeChargeCap_FeeType_FeeType {
+  ServiceCAccountFee
+  ServiceCAccountFeeMonthly
+  ServiceCOther
+  Other
+}
+"""
+Indicates that this is the minimum/ maximum fee/charge that can be applied by the financial institution
+"""
+enum OBPCAData1_OtherFeesCharges_FeeChargeCap_MinMaxType {
+  Minimum
+  Maximum
+}
+"""
+Period e.g. day, week, month etc. for which the fee/charge is capped
+"""
+enum OBPCAData1_OtherFeesCharges_FeeChargeCap_CappingPeriod {
+  AcademicTerm
+  Day
+  HalfYear
+  Month
+  Quarter
+  Week
+  Year
+}
+"""
+Other fee type code which is not available in the standard code set
+"""
+type OBPCAData1_OtherFeesCharges_FeeChargeCap_OtherFeeType {
+  "The four letter Mnemonic used within an XML file to identify a code"
+  Code: String
+  "Long name associated with the code"
+  Name: String!
+  "Description to describe the purpose of the code"
+  Description: String!
+}
+"""
+Details about any caps (maximum charges) that apply to a particular fee/charge
+"""
+type OBPCAData1_OtherFeesCharges_FeeChargeCap {
+  "Fee/charge type which is being capped"
+  FeeType: [OBPCAData1_OtherFeesCharges_FeeChargeCap_FeeType_FeeType]
+  "Indicates that this is the minimum/ maximum fee/charge that can be applied by the financial institution"
+  MinMaxType: OBPCAData1_OtherFeesCharges_FeeChargeCap_MinMaxType!
+  "fee/charges are captured dependent on the number of occurrences rather than capped at a particular amount"
+  FeeCapOccurrence: Float
+  "Cap amount charged for a fee/charge (where it is charged in terms of an amount rather than a rate)"
+  FeeCapAmount: String
+  "Period e.g. day, week, month etc. for which the fee/charge is capped"
+  CappingPeriod: OBPCAData1_OtherFeesCharges_FeeChargeCap_CappingPeriod
+  "Free text for adding  extra details for fee charge cap"
+  Notes: [String]
+  "Other fee type code which is not available in the standard code set"
+  OtherFeeType: OBPCAData1_OtherFeesCharges_FeeChargeCap_OtherFeeType
+}
+"""
+Contains details of fees and charges which are not associated with either borrowing or features/benefits
+"""
+type OBPCAData1_OtherFeesCharges {
+  "Other fees/charges details"
+  FeeChargeDetail: OBPCAData1_OtherFeesCharges_FeeChargeDetail!
+  "Details about any caps (maximum charges) that apply to a particular fee/charge"
+  FeeChargeCap: OBPCAData1_OtherFeesCharges_FeeChargeCap
+}
+type OBPCAData1 {
+  ProductDetails: OBPCAData1_ProductDetails
+  "Details about the interest that may be payable to the PCA account holders"
+  CreditInterest: OBPCAData1_CreditInterest
+  "Details about Overdraft rates, fees & charges"
+  Overdraft: OBPCAData1_Overdraft
+  "Contains details of fees and charges which are not associated with either borrowing or features/benefits"
+  OtherFeesCharges: OBPCAData1_OtherFeesCharges
+}
+type OBParty1 {
+  "A unique and immutable identifier used to identify the customer resource. This identifier has no meaning to the account owner."
+  PartyId: String!
+  "Number assigned by an agent to identify its customer."
+  PartyNumber: String
+  "Party type, in a coded form."
+  PartyType: OBExternalPartyType1Code
+  "Name by which a party is known and which is usually used to identify that party."
+  Name: String
+  "Address for electronic mail (e-mail)."
+  EmailAddress: String
+  "Collection of information that identifies a phone number, as defined by telecom services."
+  Phone: String
+  "Collection of information that identifies a mobile phone number, as defined by telecom services."
+  Mobile: String
+  "Postal address of a party."
+  Address: [OBPostalAddress8]
+}
+"""
+Information that locates and identifies a specific address, as defined by postal services.
+"""
+type OBPostalAddress6 {
+  "Identifies the nature of the postal address."
+  AddressType: OBAddressTypeCode
+  "Identification of a division of a large organisation or building."
+  Department: String
+  "Identification of a sub-division of a large organisation or building."
+  SubDepartment: String
+  "Name of a street or thoroughfare."
+  StreetName: String
+  "Number that identifies the position of a building on a street."
+  BuildingNumber: String
+  "Identifier consisting of a group of letters and/or numbers that is added to a postal address to assist the sorting of mail."
+  PostCode: String
+  "Name of a built-up area, with defined boundaries, and a local government."
+  TownName: String
+  "Identifies a subdivision of a country such as state, region, county."
+  CountrySubDivision: String
+  "Nation with its own government."
+  Country: String
+  "Information that locates and identifies a specific address, as defined by postal services, presented in free format text."
+  AddressLine: [String]
+}
+"""
+Postal address of a party.
+"""
+type OBPostalAddress8 {
+  "Identifies the nature of the postal address."
+  AddressType: OBAddressTypeCode
+  "Information that locates and identifies a specific address, as defined by postal services, that is presented in free format text."
+  AddressLine: [String]
+  "Name of a street or thoroughfare."
+  StreetName: String
+  "Number that identifies the position of a building on a street."
+  BuildingNumber: String
+  "Identifier consisting of a group of letters and/or numbers that is added to a postal address to assist the sorting of mail."
+  PostCode: String
+  "Name of a built-up area, with defined boundaries, and a local government."
+  TownName: String
+  "Identifies a subdivision of a country eg, state, region, county."
+  CountrySubDivision: String
+  "Nation with its own government, occupying a particular territory."
+  Country: String!
+}
+type OBProduct2 {
+  "The name of the product used for marketing purposes from a customer perspective. I.e. what the customer would recognise."
+  ProductName: String
+  "Identifier within the parent organisation for the product. Must be unique in the organisation."
+  ProductId: String
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "Identifier within the parent organisation for the product. Must be unique in the organisation."
+  SecondaryProductId: String
+  """
+  Descriptive code for the product category. 
+  If ProductType - Other is chosen, the object OtherProductType must be populated with name, and description.
+  """
+  ProductType: OBExternalProductType1Code
+  "Unique and unambiguous identification of a Product Marketing State."
+  MarketingStateId: String
+  """
+  This field provides extension to the ProductType enumeration.
+  If ProductType - Other is chosen, this field must be populated with name, and description for ASPSP specific product type.
+  """
+  OtherProductType: OBOtherProductType1
+  BCA: OBBCAData1
+  PCA: OBPCAData1
+}
+type OBScheduledPayment2 {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "A unique and immutable identifier used to identify the scheduled payment resource. This identifier has no meaning to the account owner."
+  ScheduledPaymentId: String
+  """
+  The date on which the scheduled payment will be made.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  ScheduledPaymentDateTime: String!
+  "Specifies the scheduled payment date type requested"
+  ScheduledType: OBExternalScheduleType1Code!
+  """
+  Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+  Usage: If available, the initiating party should provide this reference in the structured remittance information, to enable reconciliation by the creditor upon receipt of the amount of money.
+  If the business context requires the use of a creditor reference or a payment remit identification, and only one identifier can be passed through the end-to-end chain, the creditor's reference or payment remittance identification should be quoted in the end-to-end transaction identification.
+  """
+  Reference: String
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  InstructedAmount: OBActiveOrHistoricCurrencyAndAmount!
+  """
+  Party that manages the account on behalf of the account owner, that is manages the registration and booking of entries on the account, calculates balances on the account and provides information about the account.
+  This is the servicer of the beneficiary account.
+  """
+  CreditorAgent: OBBranchAndFinancialInstitutionIdentification5
+  "Provides the details to identify the beneficiary account."
+  CreditorAccount: OBCashAccount5
+}
+type OBScheduledPayment2Basic {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "A unique and immutable identifier used to identify the scheduled payment resource. This identifier has no meaning to the account owner."
+  ScheduledPaymentId: String
+  """
+  The date on which the scheduled payment will be made.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  ScheduledPaymentDateTime: String!
+  "Specifies the scheduled payment date type requested"
+  ScheduledType: OBExternalScheduleType1Code!
+  """
+  Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+  Usage: If available, the initiating party should provide this reference in the structured remittance information, to enable reconciliation by the creditor upon receipt of the amount of money.
+  If the business context requires the use of a creditor reference or a payment remit identification, and only one identifier can be passed through the end-to-end chain, the creditor's reference or payment remittance identification should be quoted in the end-to-end transaction identification.
+  """
+  Reference: String
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  InstructedAmount: OBActiveOrHistoricCurrencyAndAmount!
+}
+type OBScheduledPayment2Detail {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "A unique and immutable identifier used to identify the scheduled payment resource. This identifier has no meaning to the account owner."
+  ScheduledPaymentId: String
+  """
+  The date on which the scheduled payment will be made.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  ScheduledPaymentDateTime: String!
+  "Specifies the scheduled payment date type requested"
+  ScheduledType: OBExternalScheduleType1Code!
+  """
+  Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+  Usage: If available, the initiating party should provide this reference in the structured remittance information, to enable reconciliation by the creditor upon receipt of the amount of money.
+  If the business context requires the use of a creditor reference or a payment remit identification, and only one identifier can be passed through the end-to-end chain, the creditor's reference or payment remittance identification should be quoted in the end-to-end transaction identification.
+  """
+  Reference: String
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  InstructedAmount: OBActiveOrHistoricCurrencyAndAmount!
+  """
+  Party that manages the account on behalf of the account owner, that is manages the registration and booking of entries on the account, calculates balances on the account and provides information about the account.
+  This is the servicer of the beneficiary account.
+  """
+  CreditorAgent: OBBranchAndFinancialInstitutionIdentification5
+  "Provides the details to identify the beneficiary account."
+  CreditorAccount: OBCashAccount5!
+}
+type OBStandingOrder4 {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "A unique and immutable identifier used to identify the standing order resource. This identifier has no meaning to the account owner."
+  StandingOrderId: String
+  """
+  Individual Definitions:
+  EvryDay - Every day
+  EvryWorkgDay - Every working day
+  IntrvlWkDay - An interval specified in weeks (01 to 09), and the day within the week (01 to 07)
+  WkInMnthDay - A monthly interval, specifying the week of the month (01 to 05) and day within the week (01 to 07)
+  IntrvlMnthDay - An interval specified in months (between 01 to 06, 12, 24), specifying the day within the month (-5 to -1, 1 to 31)
+  QtrDay - Quarterly (either ENGLISH, SCOTTISH, or RECEIVED)
+  ENGLISH = Paid on the 25th March, 24th June, 29th September and 25th December. 
+  SCOTTISH = Paid on the 2nd February, 15th May, 1st August and 11th November.
+  RECEIVED = Paid on the 20th March, 19th June, 24th September and 20th December. 
+  Individual Patterns:
+  EvryDay (ScheduleCode)
+  EvryWorkgDay (ScheduleCode)
+  IntrvlWkDay:IntervalInWeeks:DayInWeek (ScheduleCode + IntervalInWeeks + DayInWeek)
+  WkInMnthDay:WeekInMonth:DayInWeek (ScheduleCode + WeekInMonth + DayInWeek)
+  IntrvlMnthDay:IntervalInMonths:DayInMonth (ScheduleCode + IntervalInMonths + DayInMonth)
+  QtrDay: + either (ENGLISH, SCOTTISH or RECEIVED) ScheduleCode + QuarterDay
+  The regular expression for this element combines five smaller versions for each permitted pattern. To aid legibility - the components are presented individually here:
+  EvryDay
+  EvryWorkgDay
+  IntrvlWkDay:0[1-9]:0[1-7]
+  WkInMnthDay:0[1-5]:0[1-7]
+  IntrvlMnthDay:(0[1-6]|12|24):(-0[1-5]|0[1-9]|[12][0-9]|3[01])
+  QtrDay:(ENGLISH|SCOTTISH|RECEIVED)
+  Full Regular Expression:
+  ^(EvryDay)$|^(EvryWorkgDay)$|^(IntrvlWkDay:0[1-9]:0[1-7])$|^(WkInMnthDay:0[1-5]:0[1-7])$|^(IntrvlMnthDay:(0[1-6]|12|24):(-0[1-5]|0[1-9]|[12][0-9]|3[01]))$|^(QtrDay:(ENGLISH|SCOTTISH|RECEIVED))$
+  """
+  Frequency: String!
+  """
+  Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+  Usage: If available, the initiating party should provide this reference in the structured remittance information, to enable reconciliation by the creditor upon receipt of the amount of money.
+  If the business context requires the use of a creditor reference or a payment remit identification, and only one identifier can be passed through the end-to-end chain, the creditor's reference or payment remittance identification should be quoted in the end-to-end transaction identification.
+  """
+  Reference: String
+  """
+  The date on which the first payment for a Standing Order schedule will be made.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  FirstPaymentDateTime: String
+  """
+  The date on which the next payment for a Standing Order schedule will be made.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  NextPaymentDateTime: String
+  """
+  The date on which the final payment for a Standing Order schedule will be made.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  FinalPaymentDateTime: String
+  "Specifies the status of the standing order in code form."
+  StandingOrderStatusCode: OBExternalStandingOrderStatus1Code
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  FirstPaymentAmount: OBActiveOrHistoricCurrencyAndAmount
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  NextPaymentAmount: OBActiveOrHistoricCurrencyAndAmount
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  FinalPaymentAmount: OBActiveOrHistoricCurrencyAndAmount
+  "Additional information that can not be captured in the structured fields and/or any other specific block."
+  SupplementaryData: OBSupplementaryData1
+  """
+  Party that manages the account on behalf of the account owner, that is manages the registration and booking of entries on the account, calculates balances on the account and provides information about the account.
+  This is the servicer of the beneficiary account.
+  """
+  CreditorAgent: OBBranchAndFinancialInstitutionIdentification5
+  "Provides the details to identify the beneficiary account."
+  CreditorAccount: OBCashAccount5
+}
+type OBStandingOrder4Basic {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "A unique and immutable identifier used to identify the standing order resource. This identifier has no meaning to the account owner."
+  StandingOrderId: String
+  """
+  Individual Definitions:
+  EvryDay - Every day
+  EvryWorkgDay - Every working day
+  IntrvlWkDay - An interval specified in weeks (01 to 09), and the day within the week (01 to 07)
+  WkInMnthDay - A monthly interval, specifying the week of the month (01 to 05) and day within the week (01 to 07)
+  IntrvlMnthDay - An interval specified in months (between 01 to 06, 12, 24), specifying the day within the month (-5 to -1, 1 to 31)
+  QtrDay - Quarterly (either ENGLISH, SCOTTISH, or RECEIVED)
+  ENGLISH = Paid on the 25th March, 24th June, 29th September and 25th December. 
+  SCOTTISH = Paid on the 2nd February, 15th May, 1st August and 11th November.
+  RECEIVED = Paid on the 20th March, 19th June, 24th September and 20th December. 
+  Individual Patterns:
+  EvryDay (ScheduleCode)
+  EvryWorkgDay (ScheduleCode)
+  IntrvlWkDay:IntervalInWeeks:DayInWeek (ScheduleCode + IntervalInWeeks + DayInWeek)
+  WkInMnthDay:WeekInMonth:DayInWeek (ScheduleCode + WeekInMonth + DayInWeek)
+  IntrvlMnthDay:IntervalInMonths:DayInMonth (ScheduleCode + IntervalInMonths + DayInMonth)
+  QtrDay: + either (ENGLISH, SCOTTISH or RECEIVED) ScheduleCode + QuarterDay
+  The regular expression for this element combines five smaller versions for each permitted pattern. To aid legibility - the components are presented individually here:
+  EvryDay
+  EvryWorkgDay
+  IntrvlWkDay:0[1-9]:0[1-7]
+  WkInMnthDay:0[1-5]:0[1-7]
+  IntrvlMnthDay:(0[1-6]|12|24):(-0[1-5]|0[1-9]|[12][0-9]|3[01])
+  QtrDay:(ENGLISH|SCOTTISH|RECEIVED)
+  Full Regular Expression:
+  ^(EvryDay)$|^(EvryWorkgDay)$|^(IntrvlWkDay:0[1-9]:0[1-7])$|^(WkInMnthDay:0[1-5]:0[1-7])$|^(IntrvlMnthDay:(0[1-6]|12|24):(-0[1-5]|0[1-9]|[12][0-9]|3[01]))$|^(QtrDay:(ENGLISH|SCOTTISH|RECEIVED))$
+  """
+  Frequency: String!
+  """
+  Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+  Usage: If available, the initiating party should provide this reference in the structured remittance information, to enable reconciliation by the creditor upon receipt of the amount of money.
+  If the business context requires the use of a creditor reference or a payment remit identification, and only one identifier can be passed through the end-to-end chain, the creditor's reference or payment remittance identification should be quoted in the end-to-end transaction identification.
+  """
+  Reference: String
+  """
+  The date on which the first payment for a Standing Order schedule will be made.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  FirstPaymentDateTime: String
+  """
+  The date on which the next payment for a Standing Order schedule will be made.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  NextPaymentDateTime: String
+  """
+  The date on which the final payment for a Standing Order schedule will be made.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  FinalPaymentDateTime: String
+  "Specifies the status of the standing order in code form."
+  StandingOrderStatusCode: OBExternalStandingOrderStatus1Code
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  FirstPaymentAmount: OBActiveOrHistoricCurrencyAndAmount
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  NextPaymentAmount: OBActiveOrHistoricCurrencyAndAmount
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  FinalPaymentAmount: OBActiveOrHistoricCurrencyAndAmount
+  "Additional information that can not be captured in the structured fields and/or any other specific block."
+  SupplementaryData: OBSupplementaryData1
+}
+type OBStandingOrder4Detail {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "A unique and immutable identifier used to identify the standing order resource. This identifier has no meaning to the account owner."
+  StandingOrderId: String
+  """
+  Individual Definitions:
+  EvryDay - Every day
+  EvryWorkgDay - Every working day
+  IntrvlWkDay - An interval specified in weeks (01 to 09), and the day within the week (01 to 07)
+  WkInMnthDay - A monthly interval, specifying the week of the month (01 to 05) and day within the week (01 to 07)
+  IntrvlMnthDay - An interval specified in months (between 01 to 06, 12, 24), specifying the day within the month (-5 to -1, 1 to 31)
+  QtrDay - Quarterly (either ENGLISH, SCOTTISH, or RECEIVED)
+  ENGLISH = Paid on the 25th March, 24th June, 29th September and 25th December. 
+  SCOTTISH = Paid on the 2nd February, 15th May, 1st August and 11th November.
+  RECEIVED = Paid on the 20th March, 19th June, 24th September and 20th December. 
+  Individual Patterns:
+  EvryDay (ScheduleCode)
+  EvryWorkgDay (ScheduleCode)
+  IntrvlWkDay:IntervalInWeeks:DayInWeek (ScheduleCode + IntervalInWeeks + DayInWeek)
+  WkInMnthDay:WeekInMonth:DayInWeek (ScheduleCode + WeekInMonth + DayInWeek)
+  IntrvlMnthDay:IntervalInMonths:DayInMonth (ScheduleCode + IntervalInMonths + DayInMonth)
+  QtrDay: + either (ENGLISH, SCOTTISH or RECEIVED) ScheduleCode + QuarterDay
+  The regular expression for this element combines five smaller versions for each permitted pattern. To aid legibility - the components are presented individually here:
+  EvryDay
+  EvryWorkgDay
+  IntrvlWkDay:0[1-9]:0[1-7]
+  WkInMnthDay:0[1-5]:0[1-7]
+  IntrvlMnthDay:(0[1-6]|12|24):(-0[1-5]|0[1-9]|[12][0-9]|3[01])
+  QtrDay:(ENGLISH|SCOTTISH|RECEIVED)
+  Full Regular Expression:
+  ^(EvryDay)$|^(EvryWorkgDay)$|^(IntrvlWkDay:0[1-9]:0[1-7])$|^(WkInMnthDay:0[1-5]:0[1-7])$|^(IntrvlMnthDay:(0[1-6]|12|24):(-0[1-5]|0[1-9]|[12][0-9]|3[01]))$|^(QtrDay:(ENGLISH|SCOTTISH|RECEIVED))$
+  """
+  Frequency: String!
+  """
+  Unique reference, as assigned by the creditor, to unambiguously refer to the payment transaction.
+  Usage: If available, the initiating party should provide this reference in the structured remittance information, to enable reconciliation by the creditor upon receipt of the amount of money.
+  If the business context requires the use of a creditor reference or a payment remit identification, and only one identifier can be passed through the end-to-end chain, the creditor's reference or payment remittance identification should be quoted in the end-to-end transaction identification.
+  """
+  Reference: String
+  """
+  The date on which the first payment for a Standing Order schedule will be made.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  FirstPaymentDateTime: String
+  """
+  The date on which the next payment for a Standing Order schedule will be made.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  NextPaymentDateTime: String
+  """
+  The date on which the final payment for a Standing Order schedule will be made.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  FinalPaymentDateTime: String
+  "Specifies the status of the standing order in code form."
+  StandingOrderStatusCode: OBExternalStandingOrderStatus1Code
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  FirstPaymentAmount: OBActiveOrHistoricCurrencyAndAmount
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  NextPaymentAmount: OBActiveOrHistoricCurrencyAndAmount
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  FinalPaymentAmount: OBActiveOrHistoricCurrencyAndAmount
+  "Additional information that can not be captured in the structured fields and/or any other specific block."
+  SupplementaryData: OBSupplementaryData1
+  """
+  Party that manages the account on behalf of the account owner, that is manages the registration and booking of entries on the account, calculates balances on the account and provides information about the account.
+  This is the servicer of the beneficiary account.
+  """
+  CreditorAgent: OBBranchAndFinancialInstitutionIdentification5
+  "Provides the details to identify the beneficiary account."
+  CreditorAccount: OBCashAccount5!
+}
+"""
+Provides further details on a statement resource.
+"""
+type OBStatement1 {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "Unique identifier for the statement resource within an servicing institution. This identifier is both unique and immutable."
+  StatementId: String
+  "Unique reference for the statement. This reference may be optionally populated if available."
+  StatementReference: String
+  "Statement type, in a coded form."
+  Type: OBExternalStatementType1Code!
+  """
+  Date and time at which the statement period starts.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  StartDateTime: String!
+  """
+  Date and time at which the statement period ends.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  EndDateTime: String!
+  """
+  Date and time at which the resource was created.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  CreationDateTime: String!
+  "Other descriptions that may be available for the statement resource."
+  StatementDescription: [String]
+  "Set of elements used to provide details of a benefit or reward amount for the statement resource."
+  StatementBenefit: [OBStatementBenefit1]
+  "Set of elements used to provide details of a fee for the statement resource."
+  StatementFee: [OBStatementFee1]
+  "Set of elements used to provide details of a generic interest amount related to the statement resource."
+  StatementInterest: [OBStatementInterest1]
+  "Set of elements used to provide details of a generic date time for the statement resource."
+  StatementDateTime: [OBStatementDateTime1]
+  "Set of elements used to provide details of a generic rate related to the statement resource."
+  StatementRate: [OBStatementRate1]
+  "Set of elements used to provide details of a generic number value related to the statement resource."
+  StatementValue: [OBStatementValue1]
+  "Set of elements used to provide details of a generic amount for the statement resource."
+  StatementAmount: [OBStatementAmount1]
+}
+"""
+Provides further details on a statement resource.
+"""
+type OBStatement1Basic {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "Unique identifier for the statement resource within an servicing institution. This identifier is both unique and immutable."
+  StatementId: String
+  "Unique reference for the statement. This reference may be optionally populated if available."
+  StatementReference: String
+  "Statement type, in a coded form."
+  Type: OBExternalStatementType1Code!
+  """
+  Date and time at which the statement period starts.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  StartDateTime: String!
+  """
+  Date and time at which the statement period ends.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  EndDateTime: String!
+  """
+  Date and time at which the resource was created.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  CreationDateTime: String!
+  "Other descriptions that may be available for the statement resource."
+  StatementDescription: [String]
+  "Set of elements used to provide details of a benefit or reward amount for the statement resource."
+  StatementBenefit: [OBStatementBenefit1]
+  "Set of elements used to provide details of a fee for the statement resource."
+  StatementFee: [OBStatementFee1]
+  "Set of elements used to provide details of a generic interest amount related to the statement resource."
+  StatementInterest: [OBStatementInterest1]
+  "Set of elements used to provide details of a generic date time for the statement resource."
+  StatementDateTime: [OBStatementDateTime1]
+  "Set of elements used to provide details of a generic rate related to the statement resource."
+  StatementRate: [OBStatementRate1]
+  "Set of elements used to provide details of a generic number value related to the statement resource."
+  StatementValue: [OBStatementValue1]
+}
+"""
+Provides further details on a statement resource.
+"""
+type OBStatement1Detail {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "Unique identifier for the statement resource within an servicing institution. This identifier is both unique and immutable."
+  StatementId: String
+  "Unique reference for the statement. This reference may be optionally populated if available."
+  StatementReference: String
+  "Statement type, in a coded form."
+  Type: OBExternalStatementType1Code!
+  """
+  Date and time at which the statement period starts.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  StartDateTime: String!
+  """
+  Date and time at which the statement period ends.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  EndDateTime: String!
+  """
+  Date and time at which the resource was created.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  CreationDateTime: String!
+  "Other descriptions that may be available for the statement resource."
+  StatementDescription: [String]
+  "Set of elements used to provide details of a benefit or reward amount for the statement resource."
+  StatementBenefit: [OBStatementBenefit1]
+  "Set of elements used to provide details of a fee for the statement resource."
+  StatementFee: [OBStatementFee1]
+  "Set of elements used to provide details of a generic interest amount related to the statement resource."
+  StatementInterest: [OBStatementInterest1]
+  "Set of elements used to provide details of a generic date time for the statement resource."
+  StatementDateTime: [OBStatementDateTime1]
+  "Set of elements used to provide details of a generic rate related to the statement resource."
+  StatementRate: [OBStatementRate1]
+  "Set of elements used to provide details of a generic number value related to the statement resource."
+  StatementValue: [OBStatementValue1]
+  "Set of elements used to provide details of a generic amount for the statement resource."
+  StatementAmount: [OBStatementAmount1]
+}
+"""
+Indicates whether the amount is a credit or a debit. 
+Usage: A zero amount is considered to be a credit amount.
+"""
+enum OBStatementAmount1_CreditDebitIndicator {
+  Credit
+  Debit
+}
+"""
+Set of elements used to provide details of a generic amount for the statement resource.
+"""
+type OBStatementAmount1 {
+  """
+  Indicates whether the amount is a credit or a debit. 
+  Usage: A zero amount is considered to be a credit amount.
+  """
+  CreditDebitIndicator: OBStatementAmount1_CreditDebitIndicator!
+  "Amount type, in a coded form."
+  Type: String!
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  Amount: OBActiveOrHistoricCurrencyAndAmount!
+}
+"""
+Set of elements used to provide details of a benefit or reward amount for the statement resource.
+"""
+type OBStatementBenefit1 {
+  "Benefit type, in a coded form."
+  Type: String!
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  Amount: OBActiveOrHistoricCurrencyAndAmount!
+}
+"""
+Set of elements used to provide details of a generic date time for the statement resource.
+"""
+type OBStatementDateTime1 {
+  """
+  Date and time associated with the date time type.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  DateTime: String!
+  "Date time type, in a coded form."
+  Type: String!
+}
+"""
+Indicates whether the amount is a credit or a debit. 
+Usage: A zero amount is considered to be a credit amount.
+"""
+enum OBStatementFee1_CreditDebitIndicator {
+  Credit
+  Debit
+}
+"""
+Set of elements used to provide details of a fee for the statement resource.
+"""
+type OBStatementFee1 {
+  """
+  Indicates whether the amount is a credit or a debit. 
+  Usage: A zero amount is considered to be a credit amount.
+  """
+  CreditDebitIndicator: OBStatementFee1_CreditDebitIndicator!
+  "Fee type, in a coded form."
+  Type: String!
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  Amount: OBActiveOrHistoricCurrencyAndAmount!
+}
+"""
+Indicates whether the amount is a credit or a debit. 
+Usage: A zero amount is considered to be a credit amount.
+"""
+enum OBStatementInterest1_CreditDebitIndicator {
+  Credit
+  Debit
+}
+"""
+Set of elements used to provide details of a generic interest amount related to the statement resource.
+"""
+type OBStatementInterest1 {
+  """
+  Indicates whether the amount is a credit or a debit. 
+  Usage: A zero amount is considered to be a credit amount.
+  """
+  CreditDebitIndicator: OBStatementInterest1_CreditDebitIndicator!
+  "Interest amount type, in a coded form."
+  Type: String!
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  Amount: OBActiveOrHistoricCurrencyAndAmount!
+}
+"""
+Set of elements used to provide details of a generic rate related to the statement resource.
+"""
+type OBStatementRate1 {
+  "Rate associated with the statement rate type."
+  Rate: String!
+  "Statement rate type, in a coded form."
+  Type: String!
+}
+"""
+Set of elements used to provide details of a generic number value related to the statement resource.
+"""
+type OBStatementValue1 {
+  "Value associated with the statement value type."
+  Value: Int!
+  "Statement value type, in a coded form."
+  Type: String!
+}
+"""
+Indicates whether the transaction is a credit or a debit entry.
+"""
+enum OBTransaction4_CreditDebitIndicator {
+  Credit
+  Debit
+}
+"""
+Set of elements to fully identify a proprietary bank transaction code.
+"""
+type OBTransaction4_ProprietaryBankTransactionCode {
+  "Proprietary bank transaction code to identify the underlying transaction."
+  Code: String!
+  "Identification of the issuer of the proprietary bank transaction code."
+  Issuer: String
+}
+"""
+Provides further details on an entry in the report.
+"""
+type OBTransaction4 {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "Unique identifier for the transaction within an servicing institution. This identifier is both unique and immutable."
+  TransactionId: String
+  "Unique reference for the transaction. This reference is optionally populated, and may as an example be the FPID in the Faster Payments context."
+  TransactionReference: String
+  "Unique reference for the statement. This reference may be optionally populated if available."
+  StatementReference: [String]
+  "Indicates whether the transaction is a credit or a debit entry."
+  CreditDebitIndicator: OBTransaction4_CreditDebitIndicator!
+  "Status of a transaction entry on the books of the account servicer."
+  Status: OBEntryStatus1Code!
+  """
+  Date and time when a transaction entry is posted to an account on the account servicer's books.
+  Usage: Booking date is the expected booking date, unless the status is booked, in which case it is the actual booking date.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  BookingDateTime: String!
+  """
+  Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
+  Usage: If transaction entry status is pending and value date is present, then the value date refers to an expected/requested value date.
+  For transaction entries subject to availability/float and for which availability information is provided, the value date must not be used. In this case the availability component identifies the number of availability days.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  ValueDateTime: String
+  "Information that locates and identifies a specific address for a transaction entry, that is presented in free format text."
+  AddressLine: String
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  Amount: OBActiveOrHistoricCurrencyAndAmount!
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  ChargeAmount: OBActiveOrHistoricCurrencyAndAmount
+  "Set of elements used to provide details on the currency exchange."
+  CurrencyExchange: OBCurrencyExchange5
+  "Set of elements used to fully identify the type of underlying transaction resulting in an entry."
+  BankTransactionCode: OBBankTransactionCodeStructure1
+  "Set of elements to fully identify a proprietary bank transaction code."
+  ProprietaryBankTransactionCode: OBTransaction4_ProprietaryBankTransactionCode
+  "Set of elements to describe the card instrument used in the transaction."
+  CardInstrument: OBTransactionCardInstrument1
+  "Additional information that can not be captured in the structured fields and/or any other specific block."
+  SupplementaryData: OBSupplementaryData1
+  """
+  Further details of the transaction. 
+  This is the transaction narrative, which is unstructured text.
+  """
+  TransactionInformation: String
+  "Set of elements used to define the balance as a numerical representation of the net increases and decreases in an account after a transaction entry is applied to the account."
+  Balance: OBTransactionCashBalance
+  "Details of the merchant involved in the transaction."
+  MerchantDetails: OBMerchantDetails1
+  "Financial institution servicing an account for the debtor."
+  CreditorAgent: OBBranchAndFinancialInstitutionIdentification6
+  "Unambiguous identification of the account of the debtor, in the case of a crebit transaction."
+  CreditorAccount: OBCashAccount6
+  "Financial institution servicing an account for the debtor."
+  DebtorAgent: OBBranchAndFinancialInstitutionIdentification6
+  "Unambiguous identification of the account of the debtor, in the case of a crebit transaction."
+  DebtorAccount: OBCashAccount6
+}
+"""
+Indicates whether the transaction is a credit or a debit entry.
+"""
+enum OBTransaction4Basic_CreditDebitIndicator {
+  Credit
+  Debit
+}
+"""
+Set of elements to fully identify a proprietary bank transaction code.
+"""
+type OBTransaction4Basic_ProprietaryBankTransactionCode {
+  "Proprietary bank transaction code to identify the underlying transaction."
+  Code: String!
+  "Identification of the issuer of the proprietary bank transaction code."
+  Issuer: String
+}
+"""
+Provides further details on an entry in the report.
+"""
+type OBTransaction4Basic {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "Unique identifier for the transaction within an servicing institution. This identifier is both unique and immutable."
+  TransactionId: String
+  "Unique reference for the transaction. This reference is optionally populated, and may as an example be the FPID in the Faster Payments context."
+  TransactionReference: String
+  "Unique reference for the statement. This reference may be optionally populated if available."
+  StatementReference: [String]
+  "Indicates whether the transaction is a credit or a debit entry."
+  CreditDebitIndicator: OBTransaction4Basic_CreditDebitIndicator!
+  "Status of a transaction entry on the books of the account servicer."
+  Status: OBEntryStatus1Code!
+  """
+  Date and time when a transaction entry is posted to an account on the account servicer's books.
+  Usage: Booking date is the expected booking date, unless the status is booked, in which case it is the actual booking date.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  BookingDateTime: String!
+  """
+  Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
+  Usage: If transaction entry status is pending and value date is present, then the value date refers to an expected/requested value date.
+  For transaction entries subject to availability/float and for which availability information is provided, the value date must not be used. In this case the availability component identifies the number of availability days.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  ValueDateTime: String
+  "Information that locates and identifies a specific address for a transaction entry, that is presented in free format text."
+  AddressLine: String
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  Amount: OBActiveOrHistoricCurrencyAndAmount!
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  ChargeAmount: OBActiveOrHistoricCurrencyAndAmount
+  "Set of elements used to provide details on the currency exchange."
+  CurrencyExchange: OBCurrencyExchange5
+  "Set of elements used to fully identify the type of underlying transaction resulting in an entry."
+  BankTransactionCode: OBBankTransactionCodeStructure1
+  "Set of elements to fully identify a proprietary bank transaction code."
+  ProprietaryBankTransactionCode: OBTransaction4Basic_ProprietaryBankTransactionCode
+  "Set of elements to describe the card instrument used in the transaction."
+  CardInstrument: OBTransactionCardInstrument1
+  "Additional information that can not be captured in the structured fields and/or any other specific block."
+  SupplementaryData: OBSupplementaryData1
+}
+"""
+Indicates whether the transaction is a credit or a debit entry.
+"""
+enum OBTransaction4Detail_CreditDebitIndicator {
+  Credit
+  Debit
+}
+"""
+Set of elements to fully identify a proprietary bank transaction code.
+"""
+type OBTransaction4Detail_ProprietaryBankTransactionCode {
+  "Proprietary bank transaction code to identify the underlying transaction."
+  Code: String!
+  "Identification of the issuer of the proprietary bank transaction code."
+  Issuer: String
+}
+"""
+Provides further details on an entry in the report.
+"""
+type OBTransaction4Detail {
+  "A unique and immutable identifier used to identify the account resource. This identifier has no meaning to the account owner."
+  AccountId: String!
+  "Unique identifier for the transaction within an servicing institution. This identifier is both unique and immutable."
+  TransactionId: String
+  "Unique reference for the transaction. This reference is optionally populated, and may as an example be the FPID in the Faster Payments context."
+  TransactionReference: String
+  "Unique reference for the statement. This reference may be optionally populated if available."
+  StatementReference: [String]
+  "Indicates whether the transaction is a credit or a debit entry."
+  CreditDebitIndicator: OBTransaction4Detail_CreditDebitIndicator!
+  "Status of a transaction entry on the books of the account servicer."
+  Status: OBEntryStatus1Code!
+  """
+  Date and time when a transaction entry is posted to an account on the account servicer's books.
+  Usage: Booking date is the expected booking date, unless the status is booked, in which case it is the actual booking date.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  BookingDateTime: String!
+  """
+  Date and time at which assets become available to the account owner in case of a credit entry, or cease to be available to the account owner in case of a debit transaction entry.
+  Usage: If transaction entry status is pending and value date is present, then the value date refers to an expected/requested value date.
+  For transaction entries subject to availability/float and for which availability information is provided, the value date must not be used. In this case the availability component identifies the number of availability days.
+  All dates in the JSON payloads are represented in ISO 8601 date-time format. 
+  All date-time fields in responses must include the timezone. An example is below:
+  2017-04-05T10:43:07+00:00
+  """
+  ValueDateTime: String
+  "Information that locates and identifies a specific address for a transaction entry, that is presented in free format text."
+  AddressLine: String
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  Amount: OBActiveOrHistoricCurrencyAndAmount!
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  ChargeAmount: OBActiveOrHistoricCurrencyAndAmount
+  "Set of elements used to provide details on the currency exchange."
+  CurrencyExchange: OBCurrencyExchange5
+  "Set of elements used to fully identify the type of underlying transaction resulting in an entry."
+  BankTransactionCode: OBBankTransactionCodeStructure1
+  "Set of elements to fully identify a proprietary bank transaction code."
+  ProprietaryBankTransactionCode: OBTransaction4Detail_ProprietaryBankTransactionCode
+  "Set of elements to describe the card instrument used in the transaction."
+  CardInstrument: OBTransactionCardInstrument1
+  "Additional information that can not be captured in the structured fields and/or any other specific block."
+  SupplementaryData: OBSupplementaryData1
+  """
+  Further details of the transaction. 
+  This is the transaction narrative, which is unstructured text.
+  """
+  TransactionInformation: String
+  "Set of elements used to define the balance as a numerical representation of the net increases and decreases in an account after a transaction entry is applied to the account."
+  Balance: OBTransactionCashBalance
+  "Details of the merchant involved in the transaction."
+  MerchantDetails: OBMerchantDetails1
+  "Financial institution servicing an account for the debtor."
+  CreditorAgent: OBBranchAndFinancialInstitutionIdentification6
+  "Unambiguous identification of the account of the debtor, in the case of a crebit transaction."
+  CreditorAccount: OBCashAccount6
+  "Financial institution servicing an account for the debtor."
+  DebtorAgent: OBBranchAndFinancialInstitutionIdentification6
+  "Unambiguous identification of the account of the debtor, in the case of a crebit transaction."
+  DebtorAccount: OBCashAccount6
+}
+"""
+Set of elements to describe the card instrument used in the transaction.
+"""
+type OBTransactionCardInstrument1 {
+  "Name of the card scheme."
+  CardSchemeName: OBExternalCardSchemeType1Code!
+  "The card authorisation type."
+  AuthorisationType: OBExternalCardAuthorisationType1Code
+  "Name of the cardholder using the card instrument."
+  Name: String
+  "Identification assigned by an institution to identify the card instrument used in the transaction. This identification is known by the account owner, and may be masked."
+  Identification: String
+}
+"""
+Indicates whether the balance is a credit or a debit balance. 
+Usage: A zero balance is considered to be a credit balance.
+"""
+enum OBTransactionCashBalance_CreditDebitIndicator {
+  Credit
+  Debit
+}
+"""
+Set of elements used to define the balance as a numerical representation of the net increases and decreases in an account after a transaction entry is applied to the account.
+"""
+type OBTransactionCashBalance {
+  """
+  Indicates whether the balance is a credit or a debit balance. 
+  Usage: A zero balance is considered to be a credit balance.
+  """
+  CreditDebitIndicator: OBTransactionCashBalance_CreditDebitIndicator!
+  "Balance type, in a coded form."
+  Type: OBBalanceType1Code!
+  "Amount of money of the cash balance after a transaction entry is applied to the account.."
+  Amount: OBActiveOrHistoricCurrencyAndAmount!
+}
+"""
+This field provides extension to the ProductType enumeration.
+If ProductType - "Other" is chosen, this field must be populated with name, and description for ASPSP specific product type.
+"""
+type OBOtherProductType1 {
+  "Name of Other product type."
+  Name: String!
+  "Description of Other product type."
+  Description: String!
+}
+"""
+Additional information that can not be captured in the structured fields and/or any other specific block.
+"""
+type OBSupplementaryData1 {
+  _: String
+}
+"""
+Party that manages the account on behalf of the account owner, that is manages the registration and booking of entries on the account, calculates balances on the account and provides information about the account.
+This is the servicer of the beneficiary account.
+"""
+type OBBranchAndFinancialInstitutionIdentification5 {
+  "Name of the identification scheme, in a coded form as published in an external list."
+  SchemeName: String!
+  "Unique and unambiguous identification of the servicing institution."
+  Identification: String!
+}
+"""
+Provides the details to identify the beneficiary account.
+"""
+type OBCashAccount5 {
+  "Name of the identification scheme, in a coded form as published in an external list."
+  SchemeName: String!
+  "Beneficiary account identification."
+  Identification: String!
+  """
+  Name of the account, as assigned by the account servicing institution.
+  Usage: The account name is the name or names of the account owner(s) represented at an account level. The account name is not the product name or the nickname of the account.
+  """
+  Name: String
+  """
+  This is secondary identification of the account, as assigned by the account servicing institution. 
+  This can be used by building societies to additionally identify accounts with a roll number (in addition to a sort code and account number combination).
+  """
+  SecondaryIdentification: String
+}
+"""
+Unambiguous identification of the account of the debtor, in the case of a crebit transaction.
+"""
+type OBCashAccount6 {
+  "Name of the identification scheme, in a coded form as published in an external list."
+  SchemeName: String
+  "Identification assigned by an institution to identify an account. This identification is known by the account owner."
+  Identification: String
+  """
+  Name of the account, as assigned by the account servicing institution.
+  Usage: The account name is the name or names of the account owner(s) represented at an account level. The account name is not the product name or the nickname of the account.
+  """
+  Name: String
+  """
+  This is secondary identification of the account, as assigned by the account servicing institution. 
+  This can be used by building societies to additionally identify accounts with a roll number (in addition to a sort code and account number combination).
+  """
+  SecondaryIdentification: String
+}
+"""
+Financial institution servicing an account for the debtor.
+"""
+type OBBranchAndFinancialInstitutionIdentification6 {
+  "Name of the identification scheme, in a coded form as published in an external list."
+  SchemeName: String
+  "Unique and unambiguous identification of a financial institution or a branch of a financial institution."
+  Identification: String
+  "Name by which an agent is known and which is usually used to identify that agent."
+  Name: String
+  "Information that locates and identifies a specific address, as defined by postal services."
+  PostalAddress: OBPostalAddress6
+}
+"""
+Account object wrapper that pulls together all the data available across REST endpoints
+Attributes of the account are embedded in their original type definition for consistency
+"""
+type Account {
+  "Unambiguous identification of the account to which credit and debit entries are made."
+  Attributes: OBAccount3!
+  "Set of elements used to define the balance details."
+  Balances: [OBCashBalance1]
+  Beneficiary: [OBBeneficiary3]
+  "Account to or from which a cash entry is made."
+  DirectDebit: [OBDirectDebit1]
+  Offer: [OBOffer1]
+  Party: OBParty1
+  Product: [OBProduct2]
+  ScheduledPayment: [OBScheduledPayment2]
+  StandingOrder: [OBStandingOrder4]
+  "Provides further details on a statement resource."
+  Statement: [OBStatement1]
+  "Provides further details on an entry in the report."
+  Transaction: [OBTransaction4]
+}
+"""
+Root query that provides details of accounts available to the user
+"""
+type Query {
+  """
+  Permitted accounts
+  """
+  Accounts: [Account]!
+}

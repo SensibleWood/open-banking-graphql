@@ -63,6 +63,7 @@ Building the schema
 A copy of the Account Information schema is in `dist` but if you want to build it it's pretty straightforward really:
 
 ```bash
+npm i
 npm run build:account-info
 ```
 

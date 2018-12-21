@@ -14,7 +14,7 @@ Sources
 
 Current versions of the Payment Initiation and Account Information API specifications:
 
-* [Account Info](https://openbanking.atlassian.net/wiki/download/attachments/127009221/account-info-swagger.json?api=v2)
-* [Payment Initiation]()
+* [Account Info](https://raw.githubusercontent.com/OpenBankingUK/read-write-api-specs/v3.0.0/dist/account-info-swagger.json)
+* [Payment Initiation](https://raw.githubusercontent.com/OpenBankingUK/read-write-api-specs/v3.0.0/dist/payment-initiation-swagger.json)
 
 

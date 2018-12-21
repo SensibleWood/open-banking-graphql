@@ -8,14 +8,13 @@ const argv = require('yargs') // eslint-disable-line
   .demandOption(['input', 'template', 'rootInterface', 'output'])
   .argv;
 
-const SwaggerToGraphQL = require('../lib/converters/swagger');
+const SwaggerToGraphQL = require('../lib/swagger-to-graphql');
 
-const swagger = JSON.parse(fs.readFileSync(argv.input, 'utf8'));
-const template = fs.readFileSync(argv.template, 'utf8');
-
-const fullSchema = SwaggerToGraphQL({ swagger, template, rootInterface: argv.rootInterface });
-const schema = fullSchema.renderAll(argv.filter || '');
-
-fs.writeFileSync(argv.output, schema);
-
-// '^((?!(OBRead.*|Links|Meta|OBRisk2|OBError.*)))'
+fs.writeFileSync(
+  argv.output,
+  SwaggerToGraphQL({
+    swagger: JSON.parse(fs.readFileSync(argv.input, 'utf8')),
+    template: fs.readFileSync(argv.template, 'utf8'),
+    rootInterface: argv.rootInterface,
+  }).renderAll(argv.filter || ''),
+);

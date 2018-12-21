@@ -19,7 +19,8 @@ The approach I've taken is fairly pragmatic and I'm sure there are plenty of opt
 In brief:
 
 * Primitives in Swagger (JSON Schema really) map pretty well to their Scalar equivalent so most of these are just transposed.
-* Likewise for `enum`, but the Open Banking enums need some amending to compile in a GraphQL schema i.e. remove spaces, anything that's not `[A-Za-z]`.
+* Likewise for `enum`, but the Open Banking enums some need amending to compile in a GraphQL schema i.e. remove spaces, anything that's not `[A-Za-z]`, then sort them nicely.
+* Where Swagger references a type and that type is a primitive it gets pulled directly into the parent. For example there is no `AccountId` interface, instead `AccountId` is always defined as `String`. This was done for pragmatism and simplicity in the resultant schema. 
 * Any inline type declarations in the source Swagger are pulled into a type with a name comprised of the parent and child names concatenated with underscores. They quickly look hideous! However, it works for the time being until I refactor the approach (see [Next Steps](#Next-Steps)).
 
 If you know the UK Open Banking standards it's pretty obvious what I don't deal with:
@@ -31,7 +32,16 @@ If you know the UK Open Banking standards it's pretty obvious what I don't deal 
 Next steps
 ===
 
-This is what I planned next, split up into implementation, schema and tooling:
+This is what I have planned next, split up into schema, implementation and coverage.
+
+Schema
+---
+
+- [ ] Approach for converting `AccountId`, `BeneficiaryId`, etc consistently to a type of `ID`
+- [ ] Remove the need for a template by doing something clever
+- [ ] Migrate homegrown, not done enough research, must be a way of doing this, typing approach in `lib/converters/swagger.js` to GraphQL.js
+- [ ] Tackle the hideous concatenated type name approach together with...
+- [ ] Optimise the schema so it `type` definitions can be combined where appropriate
 
 Implementation
 ---
@@ -39,7 +49,7 @@ Implementation
 - [ ] Create a boilerplate bunch of resolvers that will play nicely with a GraphQL server of some sort
 - [ ] Implement with something meaning i.e. a real backend
 
-Schema
+Coverage
 ---
 
 - [ ] Tackle Payment Initiation
@@ -47,10 +57,23 @@ Schema
 - [ ] Bring all the APIs together
 - [ ] Look at Berlin Group and STET standards and see if they can join the party
 
-Tooling
----
+Building the schema
+===
 
-- [ ] Remove the need for a template by doing something clever
-- [ ] Migrate homegrown typing approach in `lib/converters/swagger.js` to GraphQL.js
-- [ ] Tackle the hideous concatenated type name approach together with...
-- [ ] Optimise the schema so it `type` definitions can be combined where appropriate
+A copy of the Account Information schema is in `dist` but if you want to build it it's pretty straightforward really:
+
+```bash
+npm run build:account-info
+```
+
+This:
+
+- Generates the GraphQL schema
+- Lints it using the frankly bloody excellent [Graph Schema Linter](https://github.com/cjoudrey/graphql-schema-linter) #props to @cjoudrey.
+
+You can then take `dist/account-info.graphql` to your favorite GraphQL server and make hay.
+
+Get Involved
+===
+
+Contributions are welcome - just get in touch.

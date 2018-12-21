@@ -1,17 +1,34 @@
 const { expect } = require('chai');
 const fs = require('fs');
-const graphql = require('graphql');
 
-const SwaggerToGraphQL = require('../../lib/converters/swagger');
+const SwaggerToGraphQL = require('../lib/swagger-to-graphql');
 
 describe(__filename, () => {
-  const swagger = JSON.parse(fs.readFileSync(`${__dirname}/../data/specs/account-info-swagger.json`, 'utf-8'));
-  const template = fs.readFileSync(`${__dirname}/../data/templates/account-info.graphql`, 'utf-8');
+  const swagger = JSON.parse(fs.readFileSync(`${__dirname}/data/specs/account-info-swagger.json`, 'utf-8'));
+  const template = fs.readFileSync(`${__dirname}/data/templates/account-info.graphql`, 'utf-8');
   const rootInterface = 'OBAccount3';
 
-  const converter = SwaggerToGraphQL({ swagger, template, rootInterface });
+
+  describe('Initialisation', () => {
+    it('Missing arguments throws an error', () => {
+      expect(SwaggerToGraphQL.bind(SwaggerToGraphQL, { swagger })).to.throw('Missing required properties from options: { swagger, rootInterface }');
+    });
+  });
 
   describe('Type conversion cases', () => {
+    const converter = SwaggerToGraphQL({ swagger, template, rootInterface });
+
+    it('type conversion with bad arguments throws an error', () => {
+      expect(converter.convert.bind(converter, 'AccountId', null, null, ['AccountId']))
+        .to.throw('Cannot destructure property `description` of \'undefined\' or \'null\'.');
+    });
+    it('type conversion with unprofiled Swagger characteristic throws and error', () => {
+      const definition = JSON.parse(JSON.stringify(swagger.definitions.AccountId));
+      definition.type = 'unknown';
+
+      expect(converter.convert.bind(converter, 'AccountId', definition, null, ['AccountId']))
+        .to.throw('Could not map Swagger defintion to GraphQL type: AccountId');
+    });
     it('string conversion returned as type String', () => {
       const result = converter.convert('AccountId', swagger.definitions.AccountId, null, ['AccountId']);
       expect(result.AccountId.type).to.equal('String');
@@ -62,6 +79,8 @@ describe(__filename, () => {
   });
 
   describe('Definition reference conversion', () => {
+    const converter = SwaggerToGraphQL({ swagger, template, rootInterface });
+
     it('object conversion with referenced object definition is transposed to schema', () => {
       const result = converter.convert('OBOffer1', swagger.definitions.OBOffer1);
       expect(result.OBOffer1.type).to.equal('type');
@@ -74,7 +93,7 @@ describe(__filename, () => {
     });
   });
 
-  describe('Rendering of types', () => {
+  describe('Rendering of types with a filter', () => {
     const regexCheck = (text, expression) => (new RegExp(expression)).test(text);
     const fullSchema = SwaggerToGraphQL({ swagger, template, rootInterface });
     const schema = fullSchema.renderAll('^((?!(OBRead.*|Links|Meta|OBRisk2|OBError.*)))');
@@ -88,6 +107,20 @@ describe(__filename, () => {
     });
     it('Check that the Account type implements the root interface', () => {
       expect(regexCheck(schema, `type Account implements ${rootInterface}`)).to.equal(true);
+    });
+  });
+
+  describe('Rendering of types without a filter', () => {
+    const regexCheck = (text, expression) => (new RegExp(expression)).test(text);
+    const fullSchema = SwaggerToGraphQL({ swagger, rootInterface });
+    const schema = fullSchema.renderAll();
+
+    // const schemaObj = graphql.buildSchema(schema);
+    // console.log(schemaObj);
+
+    // Some cursory tests - most of the work will be done by the linter
+    it('Check that the root interface has been defined', () => {
+      expect(regexCheck(schema, `interface ${rootInterface}`)).to.equal(true);
     });
   });
 });

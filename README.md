@@ -12,7 +12,7 @@ I'd had an idea that the UK Open Banking API specifications could be transposed 
 
 Open Banking API specifications generally tend towards REST for good reasons, but having the GraphQL kind of granularity available for developers seems like a *"good thing"*. So I started with the Account Information API, and this is the first drop.
 
-> Note: I am a freelancer at UK Open Banking and have worked on the project on-and-off for about 2 years. However, this is a private effort and not allied to Open Banking Limited.
+> Note: I am a freelancer at UK Open Banking and have worked on the project on-and-off for about 2 years. This is a private effort and not allied to Open Banking Limited.
 
 Scope
 ===

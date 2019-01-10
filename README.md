@@ -37,30 +37,10 @@ If you know the UK Open Banking standards it's pretty obvious what I don't deal 
 Next steps
 ===
 
-This is what I have planned next, split up into schema, implementation and coverage.
+Please see:
 
-Schema
----
-
-- [ ] Approach for converting `AccountId`, `BeneficiaryId`, etc consistently to a type of `ID`
-- [ ] Remove the need for a template by doing something clever
-- [ ] Migrate homegrown, not done enough research, must be a way of doing this, typing approach in `lib/converters/swagger.js` to GraphQL.js
-- [ ] Tackle the hideous concatenated type name approach together with...
-- [ ] Optimise the schema so it `type` definitions can be combined where appropriate
-
-Implementation
----
-
-- [ ] Create a boilerplate bunch of resolvers that will play nicely with a GraphQL server of some sort
-- [ ] Implement with something meaning i.e. a real backend
-
-Coverage
----
-
-- [ ] Tackle Payment Initiation
-- [ ] Tackle Confirmation of Funds
-- [ ] Bring all the APIs together
-- [ ] Look at Berlin Group and STET standards and see if they can join the party
+* Issues list: https://github.com/SensibleWood/open-banking-graphql/issues or if you prefer...
+* Todo list (with the issues in...): https://github.com/SensibleWood/open-banking-graphql/projects/1
 
 Building the schema
 ===
@@ -75,7 +55,7 @@ npm run build:account-info
 This:
 
 - Generates the GraphQL schema
-- Lints it using the frankly bloody excellent [Graph Schema Linter](https://github.com/cjoudrey/graphql-schema-linter) #props to @cjoudrey.
+- Lints it using the frankly bloody excellent [Graph Schema Linter](https://github.com/cjoudrey/graphql-schema-linter) #props to [@cjoudrey](https://github.com/cjoudrey).
 
 You can then take `dist/account-info.graphql` to your favorite GraphQL server and make hay.
 
